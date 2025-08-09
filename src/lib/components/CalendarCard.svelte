@@ -3,6 +3,7 @@
   import { userPreferences } from "$lib/stores/userPreferences";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import SectionCard from "./SectionCard.svelte";
+  import ArrowDown from "./icons/ArrowDown.svelte";
 
   const today = new Date();
 
@@ -53,17 +54,22 @@
       class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
     >
       Week {currentWeek}
-      <span class="text-[var(--color-text-muted)]">• {weekRangeString}</span>
+      <span class="text-[var(--color-text-secondary)]">• {weekRangeString}</span
+      >
     </p>
     <button
       on:click={toggleExpanded}
-      class="flex justify-center items-center border-[var(--color-text-muted)] py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer"
+      class="flex justify-center items-center border-[var(--color-text-muted)] min-h-6.5 cursor-pointer"
       aria-expanded={expanded}
       aria-controls="calendar-edit"
     >
-      <p class="font-manrope text-xs text-[var(--color-text-muted)]">
-        {expanded ? "Close" : "Edit"}
-      </p>
+      <ArrowDown
+        up={expanded}
+        color={expanded
+          ? "var(--color-primary-green)"
+          : "var(--color-text-muted)"}
+        size={24}
+      />
     </button>
   </div>
   {#if expanded}
@@ -73,7 +79,7 @@
       transition:slide={{ duration: 300 }}
     >
       <p
-        class="font-inter font-semibold tracking-tight text-[var(--color-text-secondary)] font-sm mb-2"
+        class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-2"
       >
         Select Meeting Day:
       </p>
@@ -81,7 +87,7 @@
         {#each daysOfWeek as day}
           <label
             class="cursor-pointer select-none rounded px-2 py-1 border transition
-                 flex items-center justify-center text-center
+                 flex items-center justify-center text-center text-[var(--color-text-secondary)]
                  text-sm font-semibold flex-1 max-w-[calc(100%/7)]
                  {meetingDay === day.value
               ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)]/20'
