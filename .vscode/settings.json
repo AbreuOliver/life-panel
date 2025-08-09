@@ -1,13 +1,7 @@
 {
-  /*** FEEL FREE TO COMMENT OUT THESE CHANGES IF ***
-   ** YOU DO NOT WISH TO SEE THESE COLORS LOCALLY **
-   ** HEX `#224d8f` = 'EXTRON BLUE' BRAND COLOR ***/
   "workbench.colorCustomizations": {
-    // "titleBar.activeBackground": "#000",
-    // "titleBar.inactiveBackground": "#000",
     "statusBar.background": "#82D844",
     "statusBar.foreground": "#000",
-    // "activityBar.background": "#224d8f", // FEELS KINDA AGGRESSIVE; LEAVING AS OPTIONAL
     "activityBar.foreground": "#ffffff"
   }
 }

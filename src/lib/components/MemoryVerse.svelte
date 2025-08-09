@@ -25,7 +25,6 @@
     Memory Verse
   </h2>
 
-  <!-- Verse Reference -->
   <p class="font-manrope text-2xl grow-1 font-semibold text-white">
     {memoryVerseDisplay}
   </p>
@@ -39,24 +38,18 @@
       {verseText || "No verse text available."}
     </p>
   </div>
-
-  <!-- <button
-    on:click={toggleReveal}
-    class="flex justify-center items-center py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer bg-[var(--color-primary-green)] mt-2"
-    aria-pressed={revealed}
-  >
-    <p class="font-manrope text-xs">{revealed ? "Hide Text" : "Reveal Text"}</p>
-  </button> -->
   <button
     on:click={toggleReveal}
-    class="flex justify-center items-center py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer bg-[var(--color-primary-green)] mt-2"
+    class="flex items-center py-0.5 px-2 rounded-[7px] min-h-8 cursor-pointer bg-[var(--color-primary-green)] mt-2 ml-auto"
     aria-pressed={revealed}
   >
     {#if revealed}
-      <EyeClosed class="icon-class mr-1" />
+      <EyeClosed color={`#212121`} size={14} />
     {:else}
       <EyeOpen color={`#212121`} size={14} />
     {/if}
-    <p class="font-manrope text-xs">{revealed ? "Hide Text" : "Reveal Text"}</p>
+    <p class="font-manrope text-xs pr-2">
+      {revealed ? "Hide Text" : "Reveal Text"}
+    </p>
   </button>
 </SectionCard>

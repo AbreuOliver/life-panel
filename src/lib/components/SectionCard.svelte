@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="p-4 rounded-[20px] shadow-none"
+  class="p-4 rounded-[20px] shadow-none flex-col"
   style="background-color: {bgColor};"
 >
   <slot />
