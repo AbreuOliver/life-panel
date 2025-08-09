@@ -27,9 +27,7 @@
     expanded = !expanded;
   }
 
-  function changeMeetingDay(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const newDay = parseInt(target.value);
+  function changeMeetingDay(newDay: number) {
     userPreferences.update((prefs) => ({ ...prefs, meetingDay: newDay }));
   }
 
@@ -68,36 +66,44 @@
       </p>
     </button>
   </div>
-
   {#if expanded}
     <div
       id="calendar-edit"
       class="mt-3 p-3 border border-[#CDCFCE] rounded-[13px] bg-transparent text-black"
       transition:slide={{ duration: 300 }}
     >
-      <label
-        class="font-manrope font-semibold mb-1 block"
-        for="meeting-day-select"
+      <p
+        class="font-inter font-semibold tracking-tight text-[var(--color-text-secondary)] font-sm mb-2"
       >
         Select Meeting Day:
-      </label>
-      <select
-        id="meeting-day-select"
-        class="border border-gray-300 rounded p-1"
-        bind:value={meetingDay}
-        on:change={changeMeetingDay}
-      >
-        {#each daysOfWeek as day}
-          <option value={day.value}>
-            {day.label}
-          </option>
-        {/each}
-      </select>
-      <p class="mt-2 text-sm text-gray-600">
-        Current Meeting Day: <strong
-          >{daysOfWeek.find((d) => d.value === meetingDay)?.label}</strong
-        >
       </p>
+      <fieldset class="flex justify-between" aria-label="Select Meeting Day">
+        {#each daysOfWeek as day}
+          <label
+            class="cursor-pointer select-none rounded px-2 py-1 border transition
+                 flex items-center justify-center text-center
+                 text-sm font-semibold flex-1 max-w-[calc(100%/7)]
+                 {meetingDay === day.value
+              ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)]/20'
+              : 'border-transparent hover:border-gray-400'}"
+          >
+            <input
+              type="radio"
+              name="meetingDay"
+              value={day.value}
+              bind:group={meetingDay}
+              class="sr-only"
+              on:change={() => changeMeetingDay(day.value)}
+            />
+            {day.label.slice(0, 3)}
+          </label>
+        {/each}
+      </fieldset>
+
+      <!-- <p class="mt-2 text-sm text-gray-600">
+        Current Meeting Day:
+        <strong>{daysOfWeek.find((d) => d.value === meetingDay)?.label}</strong>
+      </p> -->
     </div>
   {/if}
 </SectionCard>
