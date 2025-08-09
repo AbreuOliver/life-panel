@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+:root {
+  --color-primary: #82d844;
+  --color-light-gray: #cdcfce;
+}
+
+.font-manrope {
+  font-family: "Manrope", sans-serif;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
