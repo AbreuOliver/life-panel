@@ -3,8 +3,22 @@
 @plugin '@tailwindcss/typography';
 
 :root {
-  --color-primary: #82d844;
-  --color-light-gray: #cdcfce;
+  --color-text-primary: hsl(0, 0%, 13%);
+  --color-text-secondary: hsl(0, 0%, 29%);
+  --color-text-muted: hsl(0, 0%, 60%);
+  --color-primary-green: #82d844;
+}
+
+.text-dark-grey {
+  color: var(--color-dark-grey);
+}
+
+.bg-regular-grey {
+  background-color: var(--color-regular-grey);
+}
+
+.border-light-grey {
+  border-color: var(--color-light-grey);
 }
 
 .font-manrope {
@@ -16,5 +30,5 @@
 }
 
 .text-primary {
-  color: var(--color-primary);
+  color: var(--color-primary-green);
 }
