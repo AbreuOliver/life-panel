@@ -21,7 +21,6 @@ export function getReadingPlan(
   weekNumber: number,
   selectedPlan: string
 ): ReadingPlan {
-  // MAP USER-FRIENDLY PLAN NAME TO JSON KEY
   const planKeyMap: Record<string, string> = {
     "New Testament": "F260_NewTestament",
     "Whole Bible": "F260_WholeBible",
@@ -29,18 +28,31 @@ export function getReadingPlan(
   };
 
   const key = planKeyMap[selectedPlan];
-  if (!key) return null; // unknown plan
+  if (!key) {
+    console.warn("Unknown plan:", selectedPlan);
+    return null;
+  }
 
   const planData = plansData[key];
-  if (!planData) return null; // plan data missing
+  if (!planData) {
+    console.warn("Missing plan data for key:", key);
+    return null;
+  }
 
-  const weekStr = weekNumber.toString();
-
+  const weekStr = weekNumber.toString(); // or padStart if needed
   const weekEntry: PlanEntry | undefined = planData[weekStr];
-  if (!weekEntry) return null; // week data missing
+  if (!weekEntry) {
+    console.warn(`Missing week data for week ${weekStr} in plan ${key}`);
+    return null;
+  }
+
+  if (!weekEntry.memoryVerses) {
+    console.warn(`Missing memory verses for week ${weekStr} in plan ${key}`);
+  }
 
   return {
     plan: weekEntry.plan,
     memoryVerses: weekEntry.memoryVerses,
   };
 }
+
