@@ -146,7 +146,7 @@
     {:else}
       <EyeOpen color="#1E1E1E" size={16} />
     {/if}
-    <p class="font-manrope text-sm pr-2">
+    <p class="font-manrope text-sm pr-2 py-1">
       {revealed ? "Hide Text" : "Reveal Text"}
     </p>
   </button>

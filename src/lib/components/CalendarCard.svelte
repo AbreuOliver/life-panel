@@ -2,10 +2,12 @@
   import { slide } from "svelte/transition";
   import { userPreferences } from "$lib/stores/userPreferences";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
+  import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
   import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
 
   const today = new Date();
+  $: selectedPlan = $userPreferences.readingPlan;
 
   $: meetingDay = $userPreferences.meetingDay;
   $: startDay = meetingDay;
@@ -21,6 +23,7 @@
   }
 
   $: weekRangeString = `${formatDate(start)} - ${formatDate(end)}`;
+  $: reading = getReadingPlan(currentWeek, selectedPlan);
 
   let expanded = false;
 
@@ -44,6 +47,37 @@
 </script>
 
 <SectionCard bgColor="#E8E8E8">
+  <h2
+    class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
+  >
+    Current Reading Plan
+  </h2>
+  <div
+    class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
+  >
+    <p
+      class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
+    >
+      {selectedPlan}
+      <span class="text-[var(--color-text-muted)]"
+        >• {new Date().getFullYear()}</span
+      >
+    </p>
+    <!-- <button
+        on:click={toggleExpanded}
+        class="flex justify-end items-center bg-transparent min-h-6.5 ml-auto grow-1"
+        aria-expanded={expanded}
+        aria-controls="calendar-edit"
+      >
+        <ArrowDown
+          up={expanded}
+          color={expanded
+            ? "var(--color-primary-green)"
+            : "var(--color-text-muted)"}
+          size={26}
+        />
+      </button> -->
+  </div>
   <h2
     class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
   >

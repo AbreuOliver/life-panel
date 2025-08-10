@@ -6,6 +6,7 @@
   import SectionCard from "$lib/components/SectionCard.svelte";
 
   const today = new Date();
+  let selectedPlan = "";
 
   // Store subscription
   $: meetingDay = $userPreferences.meetingDay;

@@ -44,7 +44,7 @@ export function getWeekOfYear(date: Date = new Date(), weekStartDay: number = 0)
   // CALCULATE THE NUMBER OF WEEKS (MILLISECONDS DIVIDED BY MILLISECONDS IN A WEEK)
   // ADD 1 TO MAKE IT 1-BASED
   const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
-  const weekNumber = Math.floor(diff / oneWeekMs) + 1;
+  const weekNumber = Math.floor(diff / oneWeekMs) + 2;
 
   return weekNumber;
 }
