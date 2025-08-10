@@ -2,12 +2,13 @@
   import { onMount } from "svelte";
   import { slide } from "svelte/transition";
   import { userPreferences } from "$lib/stores/userPreferences";
-  import { getWeekOfYear, getWeekRange } from "../lib/utils/calculateWeek";
+  import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
   import MemoryVerse from "$lib/components/MemoryVerse.svelte";
   import CalendarCard from "$lib/components/CalendarCard.svelte";
   import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
+  import ReadingPlan from "$lib/components/ReadingPlan.svelte";
 
   const today = new Date();
 
@@ -107,84 +108,5 @@
   <!-- >> MEMORY VERSE >>>>>>>>>>>>>>>>>>>>>> -->
   <MemoryVerse memoryVerses={reading!.memoryVerses} {verseText} />
   <!-- >> READING PLAN >>>>>>>>>>>>>>>>>>>>>>>-->
-  <SectionCard>
-    <h2
-      class="pl-1 text-[13px] uppercase font-inter font-medium mb-0 text-[var(--color-text-muted)]"
-    >
-      Reading Plan
-    </h2>
-
-    <div class="min-h-10 py-2.5">
-      <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
-        Today
-        <span class="text-[var(--color-text-muted)]"
-          >• {formatDate(new Date())}</span
-        >
-      </p>
-
-      <div
-        class="w-[109.5%] flex items-center justify-center bg-white h-0.5 -ml-4 my-4"
-      ></div>
-
-      {#if reading?.plan}
-        {#each reading.plan as passage, index}
-          <div class="flex items-center justify-between mb-6">
-            <!-- Left side: Day circle + text -->
-            <div class="flex items-center gap-4 flex-1">
-              <!-- Day circle -->
-              <div
-                class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525] text-sm font-thin"
-              >
-                <span class="text-[12px] font-inter text-neutral-400">Day</span>
-                <span class="text-md font-inter font-semibold text-neutral-50"
-                  >{index + 1}</span
-                >
-              </div>
-
-              <!-- Passage text -->
-              <p
-                class="font-manrope text-lg leading-7 text-[var(--color-text-muted)]"
-              >
-                {passage}
-              </p>
-            </div>
-
-            <!-- Right side: Checkbox -->
-            {#if completed.includes(dayKeyFor(index))}
-              <button
-                on:click={() => toggleDayCompletion(index)}
-                aria-label={`Mark ${dayKeyFor(index)} as incomplete`}
-                class="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--color-primary-green)] border-[var(--color-primary-green)] text-white"
-              >
-                <svg
-                  viewBox="0 0 20 20"
-                  class="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M4 10l3 3 9-9"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-            {:else}
-              <button
-                on:click={() => toggleDayCompletion(index)}
-                aria-label={`Mark ${dayKeyFor(index)} as complete`}
-                class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
-              >
-              </button>
-            {/if}
-          </div>
-        {/each}
-      {:else}
-        <p class="font-manrope text-[var(--color-text-muted)]">
-          No reading plan available.
-        </p>
-      {/if}
-    </div>
-  </SectionCard>
+  <ReadingPlan />
 </main>
