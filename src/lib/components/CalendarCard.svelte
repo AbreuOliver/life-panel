@@ -2,8 +2,8 @@
   import { slide } from "svelte/transition";
   import { userPreferences } from "$lib/stores/userPreferences";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
-  import SectionCard from "./SectionCard.svelte";
-  import ArrowDown from "./icons/ArrowDown.svelte";
+  import SectionCard from "$lib/components/SectionCard.svelte";
+  import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
 
   const today = new Date();
 
@@ -45,7 +45,7 @@
 
 <SectionCard bgColor="#E8E8E8">
   <h2
-    class="pl-1 text-[14px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
+    class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
   >
     Calendar
   </h2>
@@ -59,7 +59,7 @@
     </p>
     <button
       on:click={toggleExpanded}
-      class="flex justify-center items-center border-[var(--color-text-muted)] min-h-6.5 cursor-pointer"
+      class="flex justify-end items-center bg-transparent min-h-6.5 cursor-pointer ml-auto grow-1"
       aria-expanded={expanded}
       aria-controls="calendar-edit"
     >
@@ -68,30 +68,35 @@
         color={expanded
           ? "var(--color-primary-green)"
           : "var(--color-text-muted)"}
-        size={24}
+        size={26}
       />
     </button>
   </div>
   {#if expanded}
     <div
       id="calendar-edit"
-      class="mt-3 p-3 border border-[#CDCFCE] rounded-[13px] bg-transparent text-black"
+      class="mt-3 p-3 rounded-[13px] bg-neutral-100"
       transition:slide={{ duration: 300 }}
     >
       <p
-        class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-2"
+        class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-4"
       >
-        Select Meeting Day:
+        Current Meeting Day: <span class="text-[var(--color-text-secondary)]"
+          >{daysOfWeek.find((d) => d.value === meetingDay)?.label}</span
+        >
       </p>
-      <fieldset class="flex justify-between" aria-label="Select Meeting Day">
+      <fieldset
+        class="-ml-2 flex justify-between"
+        aria-label="Select Meeting Day"
+      >
         {#each daysOfWeek as day}
           <label
-            class="cursor-pointer select-none rounded px-2 py-1 border transition
+            class="cursor-pointer select-none rounded-[3rem] h-12 px-2 py-1 border transition
                  flex items-center justify-center text-center text-[var(--color-text-secondary)]
-                 text-sm font-semibold flex-1 max-w-[calc(100%/7)]
+                 text-sm font-medium flex-1 max-w-[calc(100%/7)]
                  {meetingDay === day.value
-              ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)]/20'
-              : 'border-transparent hover:border-gray-400'}"
+              ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)] text-[var(--color-text-primary)]'
+              : 'border-transparent hover:border-[var(--color-text-muted)]'}"
           >
             <input
               type="radio"

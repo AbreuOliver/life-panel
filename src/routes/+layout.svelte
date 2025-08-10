@@ -11,7 +11,7 @@
 <div class="grid grid-cols-[1fr_minmax(0,70ch)_1fr] min-h-screen">
   <div></div>
   <!-- left gutter -->
-  <div class="px-4 sm:px-0">
+  <div class="px-4 sm:px-0 space-y-4">
     <Header />
     <slot />
   </div>

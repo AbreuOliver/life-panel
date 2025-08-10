@@ -2,39 +2,39 @@
   "F260_NewTestament": {
     "1": {
       "plan": ["Luke 1", "Luke 2", "Luke 3", "Luke 4", "Luke 5"],
-      "memoryVerses": ["Psalm 1:1-2"]
+      "memoryVerses": ["Psalms 1:1-2"]
     },
     "2": {
       "plan": ["Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10"],
-      "memoryVerses": ["Psalm 1:3-4"]
+      "memoryVerses": ["Psalms 1:3-4"]
     },
     "3": {
       "plan": ["Luke 11", "Luke 12", "Luke 13", "Luke 14", "Luke 15"],
-      "memoryVerses": ["Psalm 1:5-6"]
+      "memoryVerses": ["Psalms 1:5-6"]
     },
     "4": {
       "plan": ["Luke 16", "Luke 17", "Luke 18", "Luke 19", "Luke 20"],
-      "memoryVerses": ["Psalm 3:3-4"]
+      "memoryVerses": ["Psalms 3:3-4"]
     },
     "5": {
       "plan": ["Luke 21", "Luke 22", "Luke 23", "Luke 24", "Acts 1"],
-      "memoryVerses": ["Psalm 8:4-5"]
+      "memoryVerses": ["Psalms 8:4-5"]
     },
     "6": {
       "plan": ["Acts 2", "Acts 3", "Acts 4", "Acts 5", "Acts 6"],
-      "memoryVerses": ["Psalm 9:9-10"]
+      "memoryVerses": ["Psalms 9:9-10"]
     },
     "7": {
       "plan": ["Acts 7", "Acts 8", "Acts 9", "Acts 10", "Acts 11"],
-      "memoryVerses": ["Psalm 13:5-6"]
+      "memoryVerses": ["Psalms 13:5-6"]
     },
     "8": {
       "plan": ["Acts 12", "Acts 13", "Acts 14", "James 1", "James 2"],
-      "memoryVerses": ["Psalm 16:11"]
+      "memoryVerses": ["Psalms 16:11"]
     },
     "9": {
       "plan": ["James 3", "James 4", "James 5", "Acts 15", "Acts 16"],
-      "memoryVerses": ["Psalm 18:2"]
+      "memoryVerses": ["Psalms 18:2"]
     },
     "10": {
       "plan": [
@@ -44,7 +44,7 @@
         "Galatians 4",
         "Galatians 5"
       ],
-      "memoryVerses": ["Psalm 19:14"]
+      "memoryVerses": ["Psalms 19:14"]
     },
     "11": {
       "plan": [
@@ -54,7 +54,7 @@
         "1 Thessalonians 1",
         "1 Thessalonians 2"
       ],
-      "memoryVerses": ["Psalm 23:1-2"]
+      "memoryVerses": ["Psalms 23:1-2"]
     },
     "12": {
       "plan": [
@@ -64,7 +64,7 @@
         "2 Thessalonians 1",
         "2 Thessalonians 2"
       ],
-      "memoryVerses": ["Psalm 103:3-4"]
+      "memoryVerses": ["Psalms 103:3-4"]
     },
     "13": {
       "plan": [
@@ -74,7 +74,7 @@
         "1 Corinthians 2",
         "1 Corinthians 3"
       ],
-      "memoryVerses": ["Psalm 103:11-12"]
+      "memoryVerses": ["Psalms 103:11-12"]
     },
     "14": {
       "plan": [
@@ -84,7 +84,7 @@
         "1 Corinthians 7",
         "1 Corinthians 8"
       ],
-      "memoryVerses": ["Psalm 119:9-10"]
+      "memoryVerses": ["Psalms 119:9-10"]
     },
     "15": {
       "plan": [
@@ -94,7 +94,7 @@
         "1 Corinthians 12",
         "1 Corinthians 13"
       ],
-      "memoryVerses": ["Psalm 106:1"]
+      "memoryVerses": ["Psalms 106:1"]
     },
     "16": {
       "plan": [
@@ -104,7 +104,7 @@
         "2 Corinthians 1",
         "2 Corinthians 2"
       ],
-      "memoryVerses": ["Psalm 127:1"]
+      "memoryVerses": ["Psalms 127:1"]
     },
     "17": {
       "plan": [
@@ -114,7 +114,7 @@
         "2 Corinthians 6",
         "2 Corinthians 7"
       ],
-      "memoryVerses": ["Psalm 139:23-24"]
+      "memoryVerses": ["Psalms 139:23-24"]
     },
     "18": {
       "plan": [
@@ -124,39 +124,39 @@
         "2 Corinthians 11",
         "2 Corinthians 12"
       ],
-      "memoryVerses": ["Psalm 145:8"]
+      "memoryVerses": ["Psalms 145:8"]
     },
     "19": {
       "plan": ["2 Corinthians 13", "Mark 1", "Mark 2", "Mark 3", "Mark 4"],
-      "memoryVerses": ["Psalm 119:11"]
+      "memoryVerses": ["Psalms 119:11"]
     },
     "20": {
       "plan": ["Mark 5", "Mark 6", "Mark 7", "Mark 8", "Mark 9"],
-      "memoryVerses": ["Psalm 23:3-4"]
+      "memoryVerses": ["Psalms 23:3-4"]
     },
     "21": {
       "plan": ["Mark 10", "Mark 11", "Mark 12", "Mark 13", "Mark 14"],
-      "memoryVerses": ["Psalm 150:6"]
+      "memoryVerses": ["Psalms 150:6"]
     },
     "22": {
       "plan": ["Mark 15", "Mark 16", "Romans 1", "Romans 2", "Romans 3"],
-      "memoryVerses": ["Psalm 119:105"]
+      "memoryVerses": ["Psalms 119:105"]
     },
     "23": {
       "plan": ["Romans 4", "Romans 5", "Romans 6", "Romans 7", "Romans 8"],
-      "memoryVerses": ["Psalm 23:5-6"]
+      "memoryVerses": ["Psalms 23:5-6"]
     },
     "24": {
       "plan": ["Romans 9", "Romans 10", "Romans 11", "Romans 12", "Romans 13"],
-      "memoryVerses": ["Psalm 24:3-4"]
+      "memoryVerses": ["Psalms 24:3-4"]
     },
     "25": {
       "plan": ["Romans 14", "Romans 15", "Romans 16", "Acts 20", "Acts 21"],
-      "memoryVerses": ["Psalm 25:4-5"]
+      "memoryVerses": ["Psalms 25:4-5"]
     },
     "26": {
       "plan": ["Acts 22", "Acts 23", "Acts 24", "Acts 25", "Acts 26"],
-      "memoryVerses": ["Psalm 26:2-3"]
+      "memoryVerses": ["Psalms 26:2-3"]
     },
     "27": {
       "plan": [
@@ -166,7 +166,7 @@
         "Colossians 2",
         "Colossians 3"
       ],
-      "memoryVerses": ["Psalm 27:10"]
+      "memoryVerses": ["Psalms 27:10"]
     },
     "28": {
       "plan": [
@@ -176,7 +176,7 @@
         "Ephesians 3",
         "Ephesians 4"
       ],
-      "memoryVerses": ["Psalm 30:5"]
+      "memoryVerses": ["Psalms 30:5"]
     },
     "29": {
       "plan": [
@@ -186,7 +186,7 @@
         "Philippians 2",
         "Philippians 3"
       ],
-      "memoryVerses": ["Psalm 32:1"]
+      "memoryVerses": ["Psalms 32:1"]
     },
     "30": {
       "plan": [
@@ -196,11 +196,11 @@
         "Hebrews 2",
         "Hebrews 3"
       ],
-      "memoryVerses": ["Psalm 33:4-5"]
+      "memoryVerses": ["Psalms 33:4-5"]
     },
     "31": {
       "plan": ["Hebrews 4", "Hebrews 5", "Hebrews 6", "Hebrews 7", "Hebrews 8"],
-      "memoryVerses": ["Psalm 34:8"]
+      "memoryVerses": ["Psalms 34:8"]
     },
     "32": {
       "plan": [
@@ -210,7 +210,7 @@
         "Hebrews 12",
         "Hebrews 13"
       ],
-      "memoryVerses": ["Psalm 37:4-5"]
+      "memoryVerses": ["Psalms 37:4-5"]
     },
     "33": {
       "plan": [
@@ -220,7 +220,7 @@
         "1 Timothy 4",
         "1 Timothy 5"
       ],
-      "memoryVerses": ["Psalm 37:23-24"]
+      "memoryVerses": ["Psalms 37:23-24"]
     },
     "34": {
       "plan": [
@@ -230,39 +230,39 @@
         "2 Timothy 3",
         "2 Timothy 4"
       ],
-      "memoryVerses": ["Psalm 40:1-2"]
+      "memoryVerses": ["Psalms 40:1-2"]
     },
     "35": {
       "plan": ["Titus 1", "Titus 2", "Titus 3", "1 Peter 1", "1 Peter 2"],
-      "memoryVerses": ["Psalm 42:1-2"]
+      "memoryVerses": ["Psalms 42:1-2"]
     },
     "36": {
       "plan": ["1 Peter 3", "1 Peter 4", "1 Peter 5", "2 Peter 1", "2 Peter 2"],
-      "memoryVerses": ["Psalm 46:10"]
+      "memoryVerses": ["Psalms 46:10"]
     },
     "37": {
       "plan": ["2 Peter 3", "John 1", "John 2", "John 3", "John 4"],
-      "memoryVerses": ["Psalm 51:10-11"]
+      "memoryVerses": ["Psalms 51:10-11"]
     },
     "38": {
       "plan": ["John 5", "John 6", "John 7", "John 8", "John 9"],
-      "memoryVerses": ["Psalm 51:12-13"]
+      "memoryVerses": ["Psalms 51:12-13"]
     },
     "39": {
       "plan": ["John 10", "John 11", "John 12", "John 13", "John 14"],
-      "memoryVerses": ["Psalm 51:16-17"]
+      "memoryVerses": ["Psalms 51:16-17"]
     },
     "40": {
       "plan": ["John 15", "John 16", "John 17", "John 18", "John 19"],
-      "memoryVerses": ["Psalm 55:22"]
+      "memoryVerses": ["Psalms 55:22"]
     },
     "41": {
       "plan": ["John 20", "John 21", "1 John 1", "1 John 2", "1 John 3"],
-      "memoryVerses": ["Psalm 63:1"]
+      "memoryVerses": ["Psalms 63:1"]
     },
     "42": {
       "plan": ["1 John 4", "1 John 5", "2 John", "3 John", "Jude"],
-      "memoryVerses": ["Psalm 67:1-2"]
+      "memoryVerses": ["Psalms 67:1-2"]
     },
     "43": {
       "plan": [
@@ -272,7 +272,7 @@
         "Revelation 4",
         "Revelation 5"
       ],
-      "memoryVerses": ["Psalm 68:5"]
+      "memoryVerses": ["Psalms 68:5"]
     },
     "44": {
       "plan": [
@@ -282,7 +282,7 @@
         "Revelation 9",
         "Revelation 10"
       ],
-      "memoryVerses": ["Psalm 81:10"]
+      "memoryVerses": ["Psalms 81:10"]
     },
     "45": {
       "plan": [
@@ -292,7 +292,7 @@
         "Revelation 14",
         "Revelation 15"
       ],
-      "memoryVerses": ["Psalm 82:3-4"]
+      "memoryVerses": ["Psalms 82:3-4"]
     },
     "46": {
       "plan": [
@@ -302,7 +302,7 @@
         "Revelation 19",
         "Revelation 20"
       ],
-      "memoryVerses": ["Psalm 84:10"]
+      "memoryVerses": ["Psalms 84:10"]
     },
     "47": {
       "plan": [
@@ -312,11 +312,11 @@
         "Matthew 2",
         "Matthew 3"
       ],
-      "memoryVerses": ["Psalm 85:6-7"]
+      "memoryVerses": ["Psalms 85:6-7"]
     },
     "48": {
       "plan": ["Matthew 4", "Matthew 5", "Matthew 6", "Matthew 7", "Matthew 8"],
-      "memoryVerses": ["Psalm 86:5"]
+      "memoryVerses": ["Psalms 86:5"]
     },
     "49": {
       "plan": [
@@ -326,7 +326,7 @@
         "Matthew 12",
         "Matthew 13"
       ],
-      "memoryVerses": ["Psalm 90:12"]
+      "memoryVerses": ["Psalms 90:12"]
     },
     "50": {
       "plan": [
@@ -336,7 +336,7 @@
         "Matthew 17",
         "Matthew 18"
       ],
-      "memoryVerses": ["Psalm 96:2-3"]
+      "memoryVerses": ["Psalms 96:2-3"]
     },
     "51": {
       "plan": [
@@ -346,7 +346,7 @@
         "Matthew 22",
         "Matthew 23"
       ],
-      "memoryVerses": ["Psalm 100:4-5"]
+      "memoryVerses": ["Psalms 100:4-5"]
     },
     "52": {
       "plan": [
@@ -356,7 +356,7 @@
         "Matthew 27",
         "Matthew 28"
       ],
-      "memoryVerses": ["Psalm 103:1-2"]
+      "memoryVerses": ["Psalms 103:1-2"]
     }
   },
   "F260_WholeBible": {
@@ -373,75 +373,75 @@
     "1": {
       "plan": [
         "Genesis 1",
-        "Psalm 1",
+        "Psalms 1",
         "Genesis 2",
-        "Psalm 2",
+        "Psalms 2",
         "Genesis 3",
-        "Psalm 3",
+        "Psalms 3",
         "Genesis 4",
-        "Psalm 4",
+        "Psalms 4",
         "Genesis 6",
-        "Psalm 5"
+        "Psalms 5"
       ],
-      "memoryVerses": ["Psalm 1:1-2"]
+      "memoryVerses": ["Psalms 1:1-2"]
     },
     "2": {
       "plan": [
         "Genesis 7",
-        "Psalm 6",
+        "Psalms 6",
         "Genesis 8",
-        "Psalm 7",
+        "Psalms 7",
         "Genesis 9",
-        "Psalm 8",
+        "Psalms 8",
         "Genesis 11",
-        "Psalm 9",
+        "Psalms 9",
         "Genesis 12",
-        "Psalm 10"
+        "Psalms 10"
       ],
-      "memoryVerses": ["Psalm 6:1-2"]
+      "memoryVerses": ["Psalms 6:1-2"]
     },
     "3": {
       "plan": [
         "Genesis 15",
-        "Psalm 11",
+        "Psalms 11",
         "Genesis 16",
-        "Psalm 12",
+        "Psalms 12",
         "Genesis 17",
-        "Psalm 13",
+        "Psalms 13",
         "Genesis 18",
-        "Psalm 14",
+        "Psalms 14",
         "Genesis 19",
-        "Psalm 15"
+        "Psalms 15"
       ],
-      "memoryVerses": ["Psalm 13:5"]
+      "memoryVerses": ["Psalms 13:5"]
     },
     "4": {
       "plan": [
         "Genesis 20",
-        "Psalm 16",
+        "Psalms 16",
         "Genesis 21",
-        "Psalm 17",
+        "Psalms 17",
         "Genesis 22",
-        "Psalm 18",
+        "Psalms 18",
         "Genesis 24",
-        "Psalm 19",
+        "Psalms 19",
         "Genesis 25",
-        "Psalm 20"
+        "Psalms 20"
       ],
-      "memoryVerses": ["Psalm 16:1-2"]
+      "memoryVerses": ["Psalms 16:1-2"]
     },
     "5": {
       "plan": [
         "Genesis 26",
-        "Psalm 21",
+        "Psalms 21",
         "Genesis 27",
-        "Psalm 22",
+        "Psalms 22",
         "Genesis 28",
-        "Psalm 23",
+        "Psalms 23",
         "Genesis 29",
-        "Psalm 24",
+        "Psalms 24",
         "Genesis 30",
-        "Psalm 25"
+        "Psalms 25"
       ],
       "memoryVerses": [
         "Genesis 26:3-5"
@@ -450,66 +450,66 @@
     "6": {
       "plan": [
         "Genesis 31",
-        "Psalm 26",
+        "Psalms 26",
         "Genesis 32",
-        "Psalm 27",
+        "Psalms 27",
         "Genesis 33",
-        "Psalm 28",
+        "Psalms 28",
         "Genesis 35",
-        "Psalm 29",
+        "Psalms 29",
         "Genesis 37",
-        "Psalm 30"
+        "Psalms 30"
       ],
       "memoryVerses": [
-        "Psalm 27:4"
+        "Psalms 27:4"
       ]
     },
     "7": {
       "plan": [
         "Genesis 39",
-        "Psalm 31",
+        "Psalms 31",
         "Genesis 40",
-        "Psalm 32",
+        "Psalms 32",
         "Genesis 41",
-        "Psalm 33",
+        "Psalms 33",
         "Genesis 42",
-        "Psalm 34",
+        "Psalms 34",
         "Genesis 43",
-        "Psalm 35"
+        "Psalms 35"
       ],
       "memoryVerses": [
-        "Psalm 31:3"
+        "Psalms 31:3"
       ]
     },
     "8": {
       "plan": [
         "Genesis 44",
-        "Psalm 36",
+        "Psalms 36",
         "Genesis 45",
-        "Psalm 37",
+        "Psalms 37",
         "Genesis 46",
-        "Psalm 38",
+        "Psalms 38",
         "Genesis 47",
-        "Psalm 39",
+        "Psalms 39",
         "Genesis 48",
-        "Psalm 40"
+        "Psalms 40"
       ],
       "memoryVerses": [
-        "Psalm 40:1-3"
+        "Psalms 40:1-3"
       ]
     },
     "9": {
       "plan": [
         "Genesis 49",
-        "Psalm 41",
+        "Psalms 41",
         "Genesis 50",
-        "Psalm 42",
+        "Psalms 42",
         "Exodus 1",
-        "Psalm 43",
+        "Psalms 43",
         "Exodus 2",
-        "Psalm 44",
+        "Psalms 44",
         "Exodus 3",
-        "Psalm 45"
+        "Psalms 45"
       ],
       "memoryVerses": [
         "Matthew 22:37-38"
@@ -518,168 +518,168 @@
     "10": {
       "plan": [
         "Exodus 4",
-        "Psalm 46",
+        "Psalms 46",
         "Exodus 5",
-        "Psalm 47",
+        "Psalms 47",
         "Exodus 6",
-        "Psalm 48",
+        "Psalms 48",
         "Exodus 7",
-        "Psalm 49",
+        "Psalms 49",
         "Exodus 8",
-        "Psalm 50"
+        "Psalms 50"
       ],
       "memoryVerses": [
-        "Psalm 46:1"
+        "Psalms 46:1"
       ]
     },
     "11": {
       "plan": [
         "Exodus 9",
-        "Psalm 51",
+        "Psalms 51",
         "Exodus 10",
-        "Psalm 52",
+        "Psalms 52",
         "Exodus 11",
-        "Psalm 53",
+        "Psalms 53",
         "Exodus 12",
-        "Psalm 54",
+        "Psalms 54",
         "Exodus 13",
-        "Psalm 55"
+        "Psalms 55"
       ],
       "memoryVerses": [
-        "Psalm 51:1-2"
+        "Psalms 51:1-2"
       ]
     },
     "12": {
       "plan": [
         "Exodus 14",
-        "Psalm 56",
+        "Psalms 56",
         "Exodus 16",
-        "Psalm 57",
+        "Psalms 57",
         "Exodus 17",
-        "Psalm 58",
+        "Psalms 58",
         "Exodus 19",
-        "Psalm 59",
+        "Psalms 59",
         "Exodus 20",
-        "Psalm 60"
+        "Psalms 60"
       ],
       "memoryVerses": [
-        "Psalm 57:2"
+        "Psalms 57:2"
       ]
     },
     "13": {
       "plan": [
         "Exodus 24",
-        "Psalm 61",
+        "Psalms 61",
         "Exodus 25",
-        "Psalm 62",
+        "Psalms 62",
         "Exodus 26",
-        "Psalm 63",
+        "Psalms 63",
         "Exodus 27",
-        "Psalm 64",
+        "Psalms 64",
         "Exodus 28",
-        "Psalm 65"
+        "Psalms 65"
       ],
       "memoryVerses": [
-        "Psalm 63:1-3"
+        "Psalms 63:1-3"
       ]
     },
     "14": {
       "plan": [
         "Exodus 29",
-        "Psalm 66",
+        "Psalms 66",
         "Exodus 30",
-        "Psalm 67",
+        "Psalms 67",
         "Exodus 31",
-        "Psalm 68",
+        "Psalms 68",
         "Exodus 32",
-        "Psalm 69",
+        "Psalms 69",
         "Exodus 33",
-        "Psalm 70"
+        "Psalms 70"
       ],
       "memoryVerses": [
-        "Psalm 68:5"
+        "Psalms 68:5"
       ]
     },
     "15": {
       "plan": [
         "Exodus 34",
-        "Psalm 71",
+        "Psalms 71",
         "Exodus 35",
-        "Psalm 72",
+        "Psalms 72",
         "Exodus 40",
-        "Psalm 73",
+        "Psalms 73",
         "Leviticus 8",
-        "Psalm 74",
+        "Psalms 74",
         "Leviticus 9",
-        "Psalm 75"
+        "Psalms 75"
       ],
       "memoryVerses": [
-        "Psalm 71:5-6"
+        "Psalms 71:5-6"
       ]
     },
     "16": {
       "plan": [
         "Leviticus 16",
-        "Psalm 76",
+        "Psalms 76",
         "Leviticus 23",
-        "Psalm 77",
+        "Psalms 77",
         "Leviticus 26",
-        "Psalm 78",
+        "Psalms 78",
         "Numbers 11",
-        "Psalm 79",
+        "Psalms 79",
         "Numbers 12",
-        "Psalm 80"
+        "Psalms 80"
       ],
       "memoryVerses": [
-        "Psalm 77:11-12"
+        "Psalms 77:11-12"
       ]
     },
     "17": {
       "plan": [
         "Numbers 13",
-        "Psalm 81",
+        "Psalms 81",
         "Numbers 14",
-        "Psalm 82",
+        "Psalms 82",
         "Numbers 16",
-        "Psalm 83",
+        "Psalms 83",
         "Numbers 17",
-        "Psalm 84",
+        "Psalms 84",
         "Numbers 20",
-        "Psalm 85"
+        "Psalms 85"
       ],
       "memoryVerses": [
-        "Psalm 84:11"
+        "Psalms 84:11"
       ]
     },
     "18": {
       "plan": [
         "Numbers 21",
-        "Psalm 86",
+        "Psalms 86",
         "Numbers 22",
-        "Psalm 87",
+        "Psalms 87",
         "Numbers 27",
-        "Psalm 88",
+        "Psalms 88",
         "Numbers 34",
-        "Psalm 89",
+        "Psalms 89",
         "Numbers 35",
-        "Psalm 90"
+        "Psalms 90"
       ],
       "memoryVerses": [
-        "Psalm 86:15"
+        "Psalms 86:15"
       ]
     },
     "19": {
       "plan": [
         "Deuteronomy 1",
-        "Psalm 91",
+        "Psalms 91",
         "Deuteronomy 2",
-        "Psalm 92",
+        "Psalms 92",
         "Deuteronomy 3",
-        "Psalm 93",
+        "Psalms 93",
         "Deuteronomy 4",
-        "Psalm 94",
+        "Psalms 94",
         "Deuteronomy 5",
-        "Psalm 95"
+        "Psalms 95"
       ],
       "memoryVerses": [
         "Deuteronomy 1:29-30"
@@ -688,15 +688,15 @@
     "20": {
       "plan": [
         "Deuteronomy 6",
-        "Psalm 96",
+        "Psalms 96",
         "Deuteronomy 7",
-        "Psalm 97",
+        "Psalms 97",
         "Deuteronomy 8",
-        "Psalm 98",
+        "Psalms 98",
         "Deuteronomy 9",
-        "Psalm 99",
+        "Psalms 99",
         "Deuteronomy 30",
-        "Psalm 100"
+        "Psalms 100"
       ],
       "memoryVerses": [
         "Deuteronomy 6:4-5"
@@ -705,15 +705,15 @@
     "21": {
       "plan": [
         "Deuteronomy 31",
-        "Psalm 101",
+        "Psalms 101",
         "Deuteronomy 32",
-        "Psalm 102",
+        "Psalms 102",
         "Deuteronomy 34",
-        "Psalm 103",
+        "Psalms 103",
         "Joshua 1",
-        "Psalm 104",
+        "Psalms 104",
         "Joshua 2",
-        "Psalm 105"
+        "Psalms 105"
       ],
       "memoryVerses": [
         "Joshua 1:8-9"
@@ -722,32 +722,32 @@
     "22": {
       "plan": [
         "Joshua 3",
-        "Psalm 106",
+        "Psalms 106",
         "Joshua 4",
-        "Psalm 107",
+        "Psalms 107",
         "Joshua 5",
-        "Psalm 108",
+        "Psalms 108",
         "Joshua 6",
-        "Psalm 109",
+        "Psalms 109",
         "Joshua 7",
-        "Psalm 110"
+        "Psalms 110"
       ],
       "memoryVerses": [
-        "Psalm 107:9"
+        "Psalms 107:9"
       ]
     },
     "23": {
       "plan": [
         "Joshua 8",
-        "Psalm 111",
+        "Psalms 111",
         "Joshua 23",
-        "Psalm 112",
+        "Psalms 112",
         "Joshua 24",
-        "Psalm 113",
+        "Psalms 113",
         "Judges 2",
-        "Psalm 114",
+        "Psalms 114",
         "Judges 3",
-        "Psalm 115"
+        "Psalms 115"
       ],
       "memoryVerses": [
         "Joshua 23:14"
@@ -756,83 +756,83 @@
     "24": {
       "plan": [
         "Judges 4",
-        "Psalm 116",
+        "Psalms 116",
         "Judges 6",
-        "Psalm 117",
+        "Psalms 117",
         "Judges 7",
-        "Psalm 118",
+        "Psalms 118",
         "Judges 13",
-        "Psalm 119:1-24",
+        "Psalms 119:1-24",
         "Judges 14",
-        "Psalm 119:25-48"
+        "Psalms 119:25-48"
       ],
       "memoryVerses": [
-        "Psalm 119:18"
+        "Psalms 119:18"
       ]
     },
     "25": {
       "plan": [
         "Judges 15",
-        "Psalm 119:49-64",
+        "Psalms 119:49-64",
         "Judges 16",
-        "Psalm 119:65-88",
+        "Psalms 119:65-88",
         "Ruth 1",
-        "Psalm 119:89-112",
+        "Psalms 119:89-112",
         "Ruth 2",
-        "Psalm 119:113-136",
+        "Psalms 119:113-136",
         "Ruth 3",
-        "Psalm 119:137-152"
+        "Psalms 119:137-152"
       ],
       "memoryVerses": [
-        "Psalm 119:50"
+        "Psalms 119:50"
       ]
     },
     "26": {
       "plan": [
         "Ruth 4",
-        "Psalm 119:153-176",
+        "Psalms 119:153-176",
         "1 Samuel 1",
-        "Psalm 120",
+        "Psalms 120",
         "1 Samuel 2",
-        "Psalm 121",
+        "Psalms 121",
         "1 Samuel 3",
-        "Psalm 122",
+        "Psalms 122",
         "1 Samuel 8",
-        "Psalm 123"
+        "Psalms 123"
       ],
       "memoryVerses": [
-        "Psalm 119:156"
+        "Psalms 119:156"
       ]
     },
     "27": {
       "plan": [
         "1 Samuel 9",
-        "Psalm 124",
+        "Psalms 124",
         "1 Samuel 10",
-        "Psalm 125",
+        "Psalms 125",
         "1 Samuel 12",
-        "Psalm 126",
+        "Psalms 126",
         "1 Samuel 14",
-        "Psalm 127",
+        "Psalms 127",
         "1 Samuel 15",
-        "Psalm 128"
+        "Psalms 128"
       ],
       "memoryVerses": [
-        "Psalm 127:1"
+        "Psalms 127:1"
       ]
     },
     "28": {
       "plan": [
         "1 Samuel 16",
-        "Psalm 129",
+        "Psalms 129",
         "1 Samuel 17",
-        "Psalm 130",
+        "Psalms 130",
         "1 Samuel 18",
-        "Psalm 131",
+        "Psalms 131",
         "1 Samuel 19",
-        "Psalm 132",
+        "Psalms 132",
         "1 Samuel 20",
-        "Psalm 133"
+        "Psalms 133"
       ],
       "memoryVerses": [
         "1 Samuel 16:7"
@@ -841,58 +841,58 @@
     "29": {
       "plan": [
         "1 Samuel 21",
-        "Psalm 134",
+        "Psalms 134",
         "1 Samuel 22",
-        "Psalm 135",
+        "Psalms 135",
         "1 Samuel 23",
-        "Psalm 136",
+        "Psalms 136",
         "1 Samuel 24",
-        "Psalm 137",
+        "Psalms 137",
         "1 Samuel 25",
-        "Psalm 138"
+        "Psalms 138"
       ],
       "memoryVerses": [
-        "Psalm 138:2"
+        "Psalms 138:2"
       ]
     },
     "30": {
       "plan": [
         "1 Samuel 28",
-        "Psalm 139",
+        "Psalms 139",
         "1 Samuel 31",
-        "Psalm 140",
+        "Psalms 140",
         "2 Samuel 1",
-        "Psalm 141",
+        "Psalms 141",
         "2 Samuel 3",
-        "Psalm 142",
+        "Psalms 142",
         "2 Samuel 5",
-        "Psalm 143"
+        "Psalms 143"
       ],
       "memoryVerses": [
-        "Psalm 141:3"
+        "Psalms 141:3"
       ]
     },
     "31": {
       "plan": [
         "2 Samuel 6",
-        "Psalm 144",
+        "Psalms 144",
         "2 Samuel 7",
-        "Psalm 145",
+        "Psalms 145",
         "2 Samuel 9",
-        "Psalm 146",
+        "Psalms 146",
         "2 Samuel 11",
-        "Psalm 147",
+        "Psalms 147",
         "2 Samuel 12",
-        "Psalm 148"
+        "Psalms 148"
       ],
       "memoryVerses": []
     },
     "32": {
       "plan": [
         "2 Samuel 24",
-        "Psalm 149",
+        "Psalms 149",
         "1 Kings 2",
-        "Psalm 150",
+        "Psalms 150",
         "1 Kings 3",
         "Proverbs 1",
         "1 Kings 6",

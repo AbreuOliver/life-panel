@@ -7,6 +7,7 @@
   import SectionCard from "$lib/components/SectionCard.svelte";
   import MemoryVerse from "$lib/components/MemoryVerse.svelte";
   import CalendarCard from "$lib/components/CalendarCard.svelte";
+  import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
 
   const today = new Date();
 
@@ -45,28 +46,12 @@
   function toggleExpanded() {
     expanded = !expanded;
   }
-
-  function changeMeetingDay(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const newDay = parseInt(target.value);
-    userPreferences.update((prefs) => ({ ...prefs, meetingDay: newDay }));
-  }
-
-  const daysOfWeek = [
-    { value: 0, label: "Sunday" },
-    { value: 1, label: "Monday" },
-    { value: 2, label: "Tuesday" },
-    { value: 3, label: "Wednesday" },
-    { value: 4, label: "Thursday" },
-    { value: 5, label: "Friday" },
-    { value: 6, label: "Saturday" },
-  ];
 </script>
 
 <main class="space-y-3">
   <SectionCard bgColor="#E8E8E8">
     <h2
-      class="pl-1 text-[14px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
+      class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
     >
       Current Reading Plan
     </h2>
@@ -76,102 +61,78 @@
       <p
         class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
       >
-        New Testament
-        <span class="text-[var(--color-text-muted)]">• Adult</span>
+        {selectedPlan}
+        <span class="text-[var(--color-text-muted)]"
+          >• {new Date().getFullYear()}</span
+        >
       </p>
-      <button
-        class="flex justify-center items-center border-[var(--color-text-muted)] py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer"
-      >
-        <p class="font-manrope text-xs text-[var(--color-text-muted)]">Edit</p>
-      </button>
-    </div>
-  </SectionCard>
-  <!-- CALENDAR -->
-  <CalendarCard />
-  <!-- <SectionCard bgColor="#E8E8E8">
-    <h2
-      class="pl-1 text-[14px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
-    >
-      Calendar
-    </h2>
-    <div class="flex min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]">
-      <p
-        class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
-      >
-        Week {currentWeek}
-        <span class="text-[var(--color-text-muted)]">• {weekRangeString}</span>
-      </p>
-      <button
+      <!-- <button
         on:click={toggleExpanded}
-        class="flex justify-center items-center border-[var(--color-text-muted)] py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer"
+        class="flex justify-end items-center bg-transparent min-h-6.5 ml-auto grow-1"
         aria-expanded={expanded}
         aria-controls="calendar-edit"
       >
-        <p class="font-manrope text-xs text-[var(--color-text-muted)]">
-          {expanded ? "Close" : "Edit"}
-        </p>
-      </button>
+        <ArrowDown
+          up={expanded}
+          color={expanded
+            ? "var(--color-primary-green)"
+            : "var(--color-text-muted)"}
+          size={26}
+        />
+      </button> -->
     </div>
-
-    {#if expanded}
-      <div
-        id="calendar-edit"
-        class="mt-3 p-3 border border-[#CDCFCE] rounded-[13px] bg-transparent text-black"
-        transition:slide={{ duration: 300 }}
-      >
-        <label
-          class="font-manrope font-semibold mb-1 block"
-          for="meeting-day-select"
-        >
-          Select Meeting Day:
-        </label>
-        <select
-          id="meeting-day-select"
-          class="border border-gray-300 rounded p-1"
-          bind:value={meetingDay}
-          on:change={changeMeetingDay}
-        >
-          {#each daysOfWeek as day}
-            <option value={day.value}>
-              {day.label}
-            </option>
-          {/each}
-        </select>
-        <p class="mt-2 text-sm text-gray-600">
-          Current Meeting Day: <strong
-            >{daysOfWeek.find((d) => d.value === meetingDay)?.label}</strong
-          >
-        </p>
-      </div>
-    {/if}
-  </SectionCard> -->
-
-  <MemoryVerse memoryVerses={reading?.memoryVerses} {verseText} />
+  </SectionCard>
+  <!-- >> CALENDAR >>>>>>>>>>>>>>>>>>>>>>>>>>-->
+  <CalendarCard />
+  <!-- >> MEMORY VERSE >>>>>>>>>>>>>>>>>>>>>> -->
+  <MemoryVerse memoryVerses={reading!.memoryVerses} {verseText} />
 
   <SectionCard>
     <h2
-      class="pl-1 text-[12px] uppercase font-inter font-medium mb-1 text-[var(--color-text-secondary)]"
+      class="pl-1 text-[13px] uppercase font-inter font-medium mb-0 text-[var(--color-text-muted)]"
     >
       Reading Plan
     </h2>
     <div class="min-h-10 py-2.5">
-      <p class="font-manrope text-2xl grow-1 font-semibold pb-2 text-white">
+      <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
         Today
         <span class="text-[var(--color-text-muted)]"
           >•
           {formatDate(new Date())}
         </span>
       </p>
-      {#each reading!.plan as passage}
-        <p class="font-manrope text-lg/6 pl-0.5 text-[var(--color-text-muted)]">
+      <div
+        class="w-[109.5%] flex items-center justify-center bg-white h-0.5 -ml-4 my-4"
+      ></div>
+      <!-- {#each reading!.plan as passage}
+        <p
+          class="font-manrope text-2xl/8 pl-0.5 text-[var(--color-text-muted)]"
+        >
           {passage}
         </p>
+      {/each} -->
+      {#each reading!.plan as passage, index}
+        <div
+          class="flex items-center justify-start border-2 border-transparent"
+        >
+          <div
+            class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525] text-sm font-thin mr-4"
+            aria-label={`Day ${index + 1}`}
+          >
+            <span class="tex-[12px] font-inter font-normal text-neutral-400"
+              >Day</span
+            >
+            <span class="text-md font-inter font-semibold text-neutral-50"
+              >{index + 1}</span
+            >
+          </div>
+          <p
+            class="flex items-center font-manrope text-2xl leading-8 text-[var(--color-text-muted)] text-center max-w-xl min-h-16"
+          >
+            {passage}
+          </p>
+        </div>
       {/each}
     </div>
-    <button
-      class="flex justify-center items-center py-0.5 px-2 rounded-[7px] min-h-6.5 cursor-pointer bg-[var(--color-primary-green)]"
-    >
-      <p class="font-manrope text-xs">Reveal Text</p>
-    </button>
   </SectionCard>
 </main>

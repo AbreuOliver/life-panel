@@ -9,62 +9,113 @@
   import { getReadingPlan } from "$lib/utils/getPlanData";
 
   let revealed = false;
-
   function toggleReveal() {
     revealed = !revealed;
   }
 
-  // Derive needed reactive values
-  const selectedPlan = derived(userPreferences, ($prefs) => $prefs.readingPlan);
-  const meetingDay = derived(userPreferences, ($prefs) => $prefs.meetingDay);
+  const selectedPlan = derived(userPreferences, ($prefs) => {
+    console.log("selectedPlan:", $prefs.readingPlan);
+    return $prefs.readingPlan;
+  });
+
+  const meetingDay = derived(userPreferences, ($prefs) => {
+    console.log("meetingDay:", $prefs.meetingDay);
+    return $prefs.meetingDay;
+  });
 
   const currentWeek = derived([meetingDay], ([$meetingDay]) => {
     const today = new Date();
-    return getWeekOfYear(today, $meetingDay);
+    const week = getWeekOfYear(today, $meetingDay);
+    console.log("currentWeek:", week);
+    return week;
   });
 
   const readingPlanData = derived(
     [currentWeek, selectedPlan],
     ([$currentWeek, $selectedPlan]) => {
+      console.log("getReadingPlan args:", { $currentWeek, $selectedPlan });
       if (!$selectedPlan) return null;
-      return getReadingPlan($currentWeek, $selectedPlan);
+      const data = getReadingPlan($currentWeek, $selectedPlan);
+      console.log("readingPlanData:", data);
+      return data;
     }
   );
 
-  const memoryVersesData = derived(readingPlanData, ($readingPlanData) => {
-    if (!$readingPlanData || !$readingPlanData.memoryVerses)
-      return { refs: "", verseText: "" };
-    const refs = $readingPlanData.memoryVerses;
-    let verseText = "";
-
-    if (Array.isArray(refs)) {
-      verseText = refs
-        .map((ref) => kjv[ref] ?? "")
-        .filter(Boolean)
-        .join(" ");
-    } else {
-      verseText = kjv[refs] || "";
+  function expandVerseRange(ref: string): string[] {
+    // Match pattern like: Book Chapter:StartVerse-EndVerse or Book Chapter:Verse
+    // Examples: "Psalms 37:4-6", "Genesis 1:1"
+    const rangeRegex = /^(.+?) (\d+):(\d+)(-(\d+))?$/;
+    const match = ref.match(rangeRegex);
+    if (!match) {
+      // Not a recognized pattern, return as-is in an array
+      return [ref];
     }
+    const book = match[1];
+    const chapter = match[2];
+    const startVerse = parseInt(match[3]);
+    const endVerse = match[5] ? parseInt(match[5]) : startVerse;
 
-    return {
-      refs,
-      verseText,
-    };
-  });
+    const verses = [];
+    for (let v = startVerse; v <= endVerse; v++) {
+      verses.push(`${book} ${chapter}:${v}`);
+    }
+    return verses;
+  }
 
-  // Local reactive values
   let memoryVerseDisplay: string | string[] = "";
   let verseText: string = "";
 
   $: memoryVersesData.subscribe(({ refs, verseText: text }) => {
+    console.log("Final memoryVersesData output:", { refs, text });
     memoryVerseDisplay = refs;
     verseText = text;
+  });
+
+  const memoryVersesData = derived(readingPlanData, ($readingPlanData) => {
+    if (!$readingPlanData || !$readingPlanData.memoryVerses) {
+      return { refs: "", verseText: "" };
+    }
+
+    const refs = $readingPlanData.memoryVerses;
+
+    function formatVerse(text: string): string {
+      let formatted = text.replace(/#/g, "\n");
+      formatted = formatted.replace(/\[([^\]]+)\]/g, "$1");
+      return formatted;
+    }
+
+    let verseText = "";
+
+    if (Array.isArray(refs)) {
+      verseText = refs
+        .map((ref) => {
+          // expand range refs into individual verse keys
+          const expandedRefs = expandVerseRange(ref);
+          const verses = expandedRefs
+            .map((key) => kjv[key] ?? "")
+            .filter(Boolean)
+            .map(formatVerse)
+            .join(" ");
+          return verses;
+        })
+        .filter(Boolean)
+        .join(" ");
+    } else {
+      const expandedRefs = expandVerseRange(refs);
+      verseText = expandedRefs
+        .map((key) => kjv[key] ?? "")
+        .filter(Boolean)
+        .map(formatVerse)
+        .join(" ");
+    }
+
+    return { refs, verseText };
   });
 </script>
 
 <SectionCard>
   <h2
-    class="pl-1 text-[12px] uppercase font-inter font-medium mb-1 text-[var(--color-text-secondary)]"
+    class="pl-1 text-[13px] uppercase font-inter font-medium mb-1 text-[var(--color-text-muted)]"
   >
     Memory Verse
   </h2>
@@ -75,27 +126,27 @@
       : memoryVerseDisplay}
   </p>
 
-  <div class="min-h-10 py-2.5 relative">
+  <div class="min-h-10 py-4 relative">
     <p
-      class="font-manrope text-lg/6 pl-0.5 text-[var(--color-text-muted)] transition-filter duration-300"
+      class="font-manrope text-lg/6 pl-0.5 text-[var(--color-text-muted)] transition-filter duration-300 whitespace-pre-line"
       class:blur-sm={!revealed}
       aria-label="Memory verse text"
     >
-      {verseText || "No verse text available."}
+      {@html verseText || "No verse text available."}
     </p>
   </div>
 
   <button
     on:click={toggleReveal}
-    class="flex items-center py-0.5 px-2 rounded-[7px] min-h-8 cursor-pointer bg-[var(--color-primary-green)] mt-2 ml-auto"
+    class="flex items-center py-0.5 px-3 rounded-2xl min-h-9 cursor-pointer bg-[var(--color-primary-green)] mt-2 ml-auto"
     aria-pressed={revealed}
   >
     {#if revealed}
-      <EyeClosed color="#212121" size={14} />
+      <EyeClosed color="#1E1E1E" size={16} />
     {:else}
-      <EyeOpen color="#212121" size={14} />
+      <EyeOpen color="#1E1E1E" size={16} />
     {/if}
-    <p class="font-manrope text-xs pr-2">
+    <p class="font-manrope text-sm pr-2">
       {revealed ? "Hide Text" : "Reveal Text"}
     </p>
   </button>
