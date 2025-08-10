@@ -6,7 +6,6 @@
   import SectionCard from "$lib/components/SectionCard.svelte";
 
   const today = new Date();
-  let selectedPlan = "";
 
   // Store subscription
   $: meetingDay = $userPreferences.meetingDay;
@@ -149,7 +148,7 @@
 
     {#if reading?.plan}
       {#each reading.plan as passage, index}
-        <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center justify-between -space-y-2 mb-6">
           <!-- Left: Day circle + text -->
           <div class="flex items-center gap-4 flex-1">
             <div
