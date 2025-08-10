@@ -46,6 +46,26 @@
   function toggleExpanded() {
     expanded = !expanded;
   }
+
+  $: completed = $userPreferences.completedDays || [];
+
+  // Build the unique key for a given index
+  function dayKeyFor(index: number) {
+    return `Week ${currentWeek}, Day ${index + 1}`;
+  }
+
+  function toggleDayCompletion(index: number) {
+    const key = dayKeyFor(index);
+    userPreferences.update((prefs) => {
+      const exists = prefs.completedDays.includes(key);
+      return {
+        ...prefs,
+        completedDays: exists
+          ? prefs.completedDays.filter((d) => d !== key)
+          : [...prefs.completedDays, key],
+      };
+    });
+  }
 </script>
 
 <main class="space-y-3">
@@ -86,53 +106,85 @@
   <CalendarCard />
   <!-- >> MEMORY VERSE >>>>>>>>>>>>>>>>>>>>>> -->
   <MemoryVerse memoryVerses={reading!.memoryVerses} {verseText} />
-
+  <!-- >> READING PLAN >>>>>>>>>>>>>>>>>>>>>>>-->
   <SectionCard>
     <h2
       class="pl-1 text-[13px] uppercase font-inter font-medium mb-0 text-[var(--color-text-muted)]"
     >
       Reading Plan
     </h2>
+
     <div class="min-h-10 py-2.5">
       <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
         Today
         <span class="text-[var(--color-text-muted)]"
-          >•
-          {formatDate(new Date())}
-        </span>
+          >• {formatDate(new Date())}</span
+        >
       </p>
+
       <div
         class="w-[109.5%] flex items-center justify-center bg-white h-0.5 -ml-4 my-4"
       ></div>
-      <!-- {#each reading!.plan as passage}
-        <p
-          class="font-manrope text-2xl/8 pl-0.5 text-[var(--color-text-muted)]"
-        >
-          {passage}
-        </p>
-      {/each} -->
-      {#each reading!.plan as passage, index}
-        <div
-          class="flex items-center justify-start border-2 border-transparent"
-        >
-          <div
-            class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525] text-sm font-thin mr-4"
-            aria-label={`Day ${index + 1}`}
-          >
-            <span class="tex-[12px] font-inter font-normal text-neutral-400"
-              >Day</span
-            >
-            <span class="text-md font-inter font-semibold text-neutral-50"
-              >{index + 1}</span
-            >
+
+      {#if reading?.plan}
+        {#each reading.plan as passage, index}
+          <div class="flex items-center justify-between mb-6">
+            <!-- Left side: Day circle + text -->
+            <div class="flex items-center gap-4 flex-1">
+              <!-- Day circle -->
+              <div
+                class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525] text-sm font-thin"
+              >
+                <span class="text-[12px] font-inter text-neutral-400">Day</span>
+                <span class="text-md font-inter font-semibold text-neutral-50"
+                  >{index + 1}</span
+                >
+              </div>
+
+              <!-- Passage text -->
+              <p
+                class="font-manrope text-lg leading-7 text-[var(--color-text-muted)]"
+              >
+                {passage}
+              </p>
+            </div>
+
+            <!-- Right side: Checkbox -->
+            {#if completed.includes(dayKeyFor(index))}
+              <button
+                on:click={() => toggleDayCompletion(index)}
+                aria-label={`Mark ${dayKeyFor(index)} as incomplete`}
+                class="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--color-primary-green)] border-[var(--color-primary-green)] text-white"
+              >
+                <svg
+                  viewBox="0 0 20 20"
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M4 10l3 3 9-9"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            {:else}
+              <button
+                on:click={() => toggleDayCompletion(index)}
+                aria-label={`Mark ${dayKeyFor(index)} as complete`}
+                class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
+              >
+              </button>
+            {/if}
           </div>
-          <p
-            class="flex items-center font-manrope text-2xl leading-8 text-[var(--color-text-muted)] text-center max-w-xl min-h-16"
-          >
-            {passage}
-          </p>
-        </div>
-      {/each}
+        {/each}
+      {:else}
+        <p class="font-manrope text-[var(--color-text-muted)]">
+          No reading plan available.
+        </p>
+      {/if}
     </div>
   </SectionCard>
 </main>
