@@ -28,10 +28,19 @@
   // Load reading plan for week
   $: reading = getReadingPlan(currentWeek, selectedPlan);
 
-  // Completion handling
-  $: allCompleted = loadCompletedDays();
+  // Completion array stored locally after mount
+  let allCompleted: boolean[] = [];
 
+  function storageKey() {
+    return `plan:${selectedPlan}:week:${currentWeek}`;
+  }
+
+  // Load completed days from localStorage (only client)
   function loadCompletedDays() {
+    if (typeof localStorage === "undefined") {
+      // Not in browser, return default
+      return Array(reading?.plan?.length || 0).fill(false);
+    }
     const key = storageKey();
     const stored = localStorage.getItem(key);
     if (stored) {
@@ -40,20 +49,17 @@
     return Array(reading?.plan?.length || 0).fill(false);
   }
 
+  // Save completed days to localStorage (only client)
   function saveCompletedDays() {
+    if (typeof localStorage === "undefined") return;
     const key = storageKey();
     localStorage.setItem(key, JSON.stringify(allCompleted));
-  }
-
-  function storageKey() {
-    return `plan:${selectedPlan}:week:${currentWeek}`;
   }
 
   function toggleDayCompletion(index: number) {
     allCompleted[index] = !allCompleted[index];
     saveCompletedDays();
 
-    // Also store in Svelte global store for app-wide usage
     userPreferences.update((prefs) => {
       const weekKey = `Week ${currentWeek}, Day ${index + 1}, Plan ${selectedPlan}`;
       const exists = prefs.completedDays.includes(weekKey);
@@ -66,16 +72,15 @@
     });
   }
 
-  // Reload when plan or week changes
-  $: {
-    if (reading?.plan) {
-      allCompleted = loadCompletedDays();
-    }
-  }
-
+  // Load completion data only on client mount
   onMount(() => {
     allCompleted = loadCompletedDays();
   });
+
+  // When week or plan changes, reload completion data (only client)
+  $: if (reading?.plan && typeof localStorage !== "undefined") {
+    allCompleted = loadCompletedDays();
+  }
 
   // Completion percentage (0–1)
   $: completionPercent = reading?.plan?.length
@@ -83,7 +88,7 @@
     : 0;
 
   // Circle geometry
-  const radius = 10; // in SVG units
+  const radius = 10;
   const circumference = 2 * Math.PI * radius;
 
   $: dashOffset = circumference * (1 - completionPercent);
@@ -97,9 +102,9 @@
       Reading Plan
     </h2>
     <div class="flex">
-      <p class="text-[var(--color-text-secondary)] pr-2">
-        {completionPercent * 100}% Complete
-      </p>
+      <!-- <p class="text-[var(--color-text-secondary)] pr-2">
+        {completionPercent * 100}%
+      </p> -->
       <!-- Animated circular progress -->
       <svg class="w-6 h-6" viewBox="0 0 24 24">
         <!-- Background track -->

@@ -7,7 +7,6 @@
   import SectionCard from "$lib/components/SectionCard.svelte";
   import MemoryVerse from "$lib/components/MemoryVerse.svelte";
   import CalendarCard from "$lib/components/CalendarCard.svelte";
-  import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
   import ReadingPlan from "$lib/components/ReadingPlan.svelte";
 
   const today = new Date();
@@ -34,7 +33,7 @@
 
   $: reading = getReadingPlan(currentWeek, selectedPlan);
 
-  const verseText = `The steps of a good man are ordered by the Lord: and He delighteth in his way. Though he fall, he shall not be utterly cast down: for the LORD upholdeth him with His hand.`;
+  const verseText = ``;
 
   onMount(() => {
     console.log("Svelte component mounted!");
@@ -49,24 +48,6 @@
   }
 
   $: completed = $userPreferences.completedDays || [];
-
-  // Build the unique key for a given index
-  function dayKeyFor(index: number) {
-    return `Week ${currentWeek}, Day ${index + 1}`;
-  }
-
-  function toggleDayCompletion(index: number) {
-    const key = dayKeyFor(index);
-    userPreferences.update((prefs) => {
-      const exists = prefs.completedDays.includes(key);
-      return {
-        ...prefs,
-        completedDays: exists
-          ? prefs.completedDays.filter((d) => d !== key)
-          : [...prefs.completedDays, key],
-      };
-    });
-  }
 </script>
 
 <main class="space-y-3">

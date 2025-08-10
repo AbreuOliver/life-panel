@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 export interface UserPreferences {
   meetingDay: number;
   readingPlan: string;
-  completedDays: number[];
+  completedDays: string[]; 
 }
 
 export const userPreferences = writable<UserPreferences>({
