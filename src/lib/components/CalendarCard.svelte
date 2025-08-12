@@ -120,7 +120,7 @@
     </p>
   </div>
 
-  <div class="flex w-full items-center mt-3">
+  <div class="flex w-full items-center mt-5">
     <h2
       class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
     >
@@ -133,35 +133,38 @@
       {#if !isCurrentWeek}
         <button
           on:click={goToCurrentWeek}
-          class="px-3 py-1 text-xs rounded-lg bg-[var(--color-primary-green)] text-white hover:opacity-80 transition-opacity"
+          class="flex justfy-center items-center px-2.5 py-1.75 text-xs rounded-2xl bg-[var(--color-primary-green)] text-white hover:opacity-80 transition-opacity"
           aria-label="Go to Current Week"
         >
           Back to Current Week
         </button>
       {/if}
-      <button
-        on:click={() => changeWeek(-1)}
-        class="p-1 rounded hover:bg-neutral-200 transition-colors"
-        aria-label="Previous Week"
+      <div
+        class="flex justfy-center items-center border border-neutral-300 rounded-2xl"
       >
-        <NarrowArrow
-          direction="right"
-          size={20}
-          color="var(--color-text-muted)"
-        />
-      </button>
-
-      <button
-        on:click={() => changeWeek(1)}
-        class="p-1 rounded hover:bg-neutral-200 transition-colors"
-        aria-label="Next Week"
-      >
-        <NarrowArrow
-          direction="left"
-          size={20}
-          color="var(--color-text-muted)"
-        />
-      </button>
+        <button
+          on:click={() => changeWeek(-1)}
+          class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
+          aria-label="Previous Week"
+        >
+          <NarrowArrow
+            direction="right"
+            size={20}
+            color="var(--color-text-muted)"
+          />
+        </button>
+        <button
+          on:click={() => changeWeek(1)}
+          class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
+          aria-label="Next Week"
+        >
+          <NarrowArrow
+            direction="left"
+            size={20}
+            color="var(--color-text-muted)"
+          />
+        </button>
+      </div>
     </div>
   </div>
 
