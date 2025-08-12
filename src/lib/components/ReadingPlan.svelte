@@ -7,13 +7,22 @@
 
   const today = new Date();
 
-  // Store subscription
+  // Store subscriptions - now including weekOffset
   $: meetingDay = $userPreferences.meetingDay;
   $: selectedPlan = $userPreferences.readingPlan;
+  $: weekOffset = $userPreferences.weekOffset;
 
-  // Week calculation
-  $: currentWeek = getWeekOfYear(today, meetingDay);
-  $: ({ start, end } = getWeekRange(today, meetingDay));
+  // Calculate displayDate based on weekOffset
+  $: {
+    const d = new Date(today);
+    d.setDate(d.getDate() + weekOffset * 7);
+    displayDate = d;
+  }
+  let displayDate: Date;
+
+  // Week calculation using displayDate instead of today
+  $: currentWeek = getWeekOfYear(displayDate, meetingDay);
+  $: ({ start, end } = getWeekRange(displayDate, meetingDay));
 
   function formatDate(date: Date) {
     return date.toLocaleDateString(undefined, {
@@ -25,8 +34,11 @@
 
   $: weekRangeString = `${formatDate(start)} - ${formatDate(end)}`;
 
-  // Load reading plan for week
+  // Load reading plan for the displayed week
   $: reading = getReadingPlan(currentWeek, selectedPlan);
+
+  // Check if we're viewing the current week
+  $: isCurrentWeek = weekOffset === 0;
 
   // Completion array stored locally after mount
   let allCompleted: boolean[] = [];
@@ -103,7 +115,7 @@
     </h2>
     <div class="flex">
       <!-- <p class="text-[var(--color-text-secondary)] pr-2">
-        {completionPercent * 100}%
+        {completionPercent * 100}%f
       </p> -->
       <!-- Animated circular progress -->
       <svg class="w-6 h-6" viewBox="0 0 24 24">
@@ -136,9 +148,9 @@
 
   <div class="min-h-10 py-2.5">
     <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
-      Today
+      {isCurrentWeek ? "Today" : "Viewing"}
       <span class="text-[var(--color-text-muted)]">
-        • {formatDate(new Date())}
+        • {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
       </span>
     </p>
 
@@ -148,7 +160,7 @@
 
     {#if reading?.plan}
       {#each reading.plan as passage, index}
-        <div class="flex items-center justify-between -space-y-2 mb-6">
+        <div class="flex items-center justify-between space-y-2">
           <!-- Left: Day circle + text -->
           <div class="flex items-center gap-4 flex-1">
             <div
@@ -191,7 +203,7 @@
             <button
               on:click={() => toggleDayCompletion(index)}
               aria-label={`Mark Week ${currentWeek} Day ${index + 1} as complete`}
-              class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
+              class="flex mt-0 items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
             >
             </button>
           {/if}

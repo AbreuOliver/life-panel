@@ -55,4 +55,3 @@ export function getReadingPlan(
     memoryVerses: weekEntry.memoryVerses,
   };
 }
-

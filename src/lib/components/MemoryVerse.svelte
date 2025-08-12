@@ -23,12 +23,26 @@
     return $prefs.meetingDay;
   });
 
-  const currentWeek = derived([meetingDay], ([$meetingDay]) => {
-    const today = new Date();
-    const week = getWeekOfYear(today, $meetingDay);
-    console.log("currentWeek:", week);
-    return week;
+  // Add weekOffset derived store
+  const weekOffset = derived(userPreferences, ($prefs) => {
+    console.log("weekOffset:", $prefs.weekOffset);
+    return $prefs.weekOffset;
   });
+
+  // Update currentWeek to use weekOffset instead of always using today
+  const currentWeek = derived(
+    [meetingDay, weekOffset],
+    ([$meetingDay, $weekOffset]) => {
+      const today = new Date();
+      // Calculate displayDate based on weekOffset
+      const displayDate = new Date(today);
+      displayDate.setDate(displayDate.getDate() + $weekOffset * 7);
+
+      const week = getWeekOfYear(displayDate, $meetingDay);
+      console.log("currentWeek:", week, "for offset:", $weekOffset);
+      return week;
+    }
+  );
 
   const readingPlanData = derived(
     [currentWeek, selectedPlan],

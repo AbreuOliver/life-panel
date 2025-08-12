@@ -1,19 +1,45 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import { userPreferences } from "$lib/stores/userPreferences";
+  import {
+    userPreferences,
+    type MeetingDay,
+  } from "$lib/stores/userPreferences";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
   import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
+  import NarrowArrow from "$lib/components/icons/NarrowArrow.svelte";
 
+  let meetingDay: MeetingDay = 0;
+
+  // ==================== CONSTANTS ====================
   const today = new Date();
+
+  // ==================== REACTIVE STORE VALUES ====================
   $: selectedPlan = $userPreferences.readingPlan;
-
   $: meetingDay = $userPreferences.meetingDay;
-  $: startDay = meetingDay;
-  $: currentWeek = getWeekOfYear(today, startDay);
-  $: ({ start, end } = getWeekRange(today, startDay));
+  $: weekOffset = $userPreferences.weekOffset;
 
+  // ==================== DERIVED REACTIVE VALUES ====================
+
+  // Calculate display date based on week offset
+  $: {
+    const d = new Date(today);
+    d.setDate(d.getDate() + weekOffset * 7);
+    displayDate = d;
+  }
+  let displayDate: Date;
+
+  // Week start day is the meeting day
+  $: startDay = meetingDay;
+
+  // Calculate current week number based on displayDate and week start day
+  $: currentWeek = getWeekOfYear(displayDate, startDay);
+
+  // Calculate start and end dates of the displayed week
+  $: ({ start, end } = getWeekRange(displayDate, startDay));
+
+  // Format the week range string for display
   function formatDate(date: Date): string {
     return date.toLocaleDateString(undefined, {
       weekday: "short",
@@ -21,20 +47,50 @@
       day: "numeric",
     });
   }
-
   $: weekRangeString = `${formatDate(start)} - ${formatDate(end)}`;
+
+  // Get reading plan for the displayed week
   $: reading = getReadingPlan(currentWeek, selectedPlan);
 
+  // Check if we're viewing the current week
+  $: isCurrentWeek = weekOffset === 0;
+
+  // ==================== LOCAL STATE ====================
+  // UI state for expanding/collapsing meeting day selector
   let expanded = false;
 
+  // ==================== EVENT HANDLERS ====================
+  // Toggle expanded state for meeting day selector panel
   function toggleExpanded() {
     expanded = !expanded;
   }
 
-  function changeMeetingDay(newDay: number) {
-    userPreferences.update((prefs) => ({ ...prefs, meetingDay: newDay }));
+  // Update the meeting day in userPreferences store on user selection
+  function changeMeetingDay(newDay: MeetingDay) {
+    userPreferences.update((prefs) => ({
+      ...prefs,
+      meetingDay: newDay,
+    }));
   }
 
+  // Navigate weeks by changing the offset
+  function changeWeek(delta: number) {
+    userPreferences.update((prefs) => ({
+      ...prefs,
+      weekOffset: prefs.weekOffset + delta,
+    }));
+  }
+
+  // Return to current week
+  function goToCurrentWeek() {
+    userPreferences.update((prefs) => ({
+      ...prefs,
+      weekOffset: 0,
+    }));
+  }
+
+  // ==================== STATIC DATA ====================
+  // Days of the week options for meeting day selection
   const daysOfWeek = [
     { value: 0, label: "Sunday" },
     { value: 1, label: "Monday" },
@@ -50,7 +106,7 @@
   <h2
     class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
   >
-    Current Reading Plan
+    {isCurrentWeek ? "Current" : "Viewing"} Reading Plan
   </h2>
   <div
     class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
@@ -59,48 +115,74 @@
       class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
     >
       {selectedPlan}
-      <span class="text-[var(--color-text-muted)]"
-        >• {new Date().getFullYear()}</span
+      <span class="text-[var(--color-text-muted)]">• {today.getFullYear()}</span
       >
     </p>
-    <!-- <button
-        on:click={toggleExpanded}
-        class="flex justify-end items-center bg-transparent min-h-6.5 ml-auto grow-1"
-        aria-expanded={expanded}
-        aria-controls="calendar-edit"
-      >
-        <ArrowDown
-          up={expanded}
-          color={expanded
-            ? "var(--color-primary-green)"
-            : "var(--color-text-muted)"}
-          size={26}
-        />
-      </button> -->
   </div>
-  <h2
-    class="pl-1 text-[13px] uppercase font-inter font-medium mt-3 mb-1.5 text-[var(--color-text-secondary)]"
-  >
-    Current Week
-  </h2>
+
+  <div class="flex w-full items-center mt-3">
+    <h2
+      class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
+    >
+      {isCurrentWeek ? "Current" : "Viewing"} Week
+    </h2>
+
+    <!-- Week navigation arrows -->
+    <div class="flex items-center gap-1 ml-auto mb-1.5">
+      <!-- Optional: "Go to Current Week" button when not on current week -->
+      {#if !isCurrentWeek}
+        <button
+          on:click={goToCurrentWeek}
+          class="px-3 py-1 text-xs rounded-lg bg-[var(--color-primary-green)] text-white hover:opacity-80 transition-opacity"
+          aria-label="Go to Current Week"
+        >
+          Back to Current Week
+        </button>
+      {/if}
+      <button
+        on:click={() => changeWeek(-1)}
+        class="p-1 rounded hover:bg-neutral-200 transition-colors"
+        aria-label="Previous Week"
+      >
+        <NarrowArrow
+          direction="right"
+          size={20}
+          color="var(--color-text-muted)"
+        />
+      </button>
+
+      <button
+        on:click={() => changeWeek(1)}
+        class="p-1 rounded hover:bg-neutral-200 transition-colors"
+        aria-label="Next Week"
+      >
+        <NarrowArrow
+          direction="left"
+          size={20}
+          color="var(--color-text-muted)"
+        />
+      </button>
+    </div>
+  </div>
+
   <div
     class="flex flex-col min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
   >
-    <div class="flex items-center">
+    <button
+      on:click={toggleExpanded}
+      class="flex items-center bg-transparent min-h-6.5 cursor-pointer grow-1 w-full"
+      aria-expanded={expanded}
+      aria-controls="calendar-edit"
+    >
       <p
-        class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
+        class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)] text-left"
       >
         Week {currentWeek}
         <span class="text-[var(--color-text-secondary)]"
           >• {weekRangeString}</span
         >
       </p>
-      <button
-        on:click={toggleExpanded}
-        class="flex justify-end items-center bg-transparent min-h-6.5 cursor-pointer ml-auto grow-1"
-        aria-expanded={expanded}
-        aria-controls="calendar-edit"
-      >
+      <div class="flex items-center ml-auto">
         <ArrowDown
           up={expanded}
           color={expanded
@@ -108,8 +190,9 @@
             : "var(--color-text-muted)"}
           size={28}
         />
-      </button>
-    </div>
+      </div>
+    </button>
+
     {#if expanded}
       <div
         id="calendar-edit"
@@ -120,8 +203,6 @@
           class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-3"
         >
           Meeting Day
-          <!-- <span class="text-[var(--color-text-secondary)]"
-            >{daysOfWeek.find((d) => d.value === meetingDay)?.label}</span> -->
         </p>
         <fieldset
           class="-ml-2 flex justify-between"
@@ -142,7 +223,7 @@
                 value={day.value}
                 bind:group={meetingDay}
                 class="sr-only"
-                on:change={() => changeMeetingDay(day.value)}
+                on:change={() => changeMeetingDay(day.value as MeetingDay)}
               />
               {day.label.slice(0, 3)}
             </label>
@@ -151,4 +232,35 @@
       </div>
     {/if}
   </div>
+
+  <!-- Optional: Display the reading plan content -->
+  <!-- {#if reading}
+    <div class="mt-4 p-3 bg-white rounded-[13px] border border-[#CDCFCE]">
+      <h3 class="font-medium text-[var(--color-text-primary)] mb-2">
+        This Week's Reading
+      </h3>
+      {#if reading.plan && reading.plan.length > 0}
+        <ul class="space-y-1 mb-3">
+          {#each reading.plan as planItem}
+            <li class="text-sm text-[var(--color-text-secondary)]">
+              • {planItem}
+            </li>
+          {/each}
+        </ul>
+      {/if}
+
+      {#if reading.memoryVerses && reading.memoryVerses.length > 0}
+        <h4 class="font-medium text-[var(--color-text-primary)] mb-2">
+          Memory Verses
+        </h4>
+        <ul class="space-y-1">
+          {#each reading.memoryVerses as verse}
+            <li class="text-sm text-[var(--color-text-secondary)] italic">
+              "{verse}"
+            </li>
+          {/each}
+        </ul>
+      {/if}
+    </div>
+  {/if} -->
 </SectionCard>

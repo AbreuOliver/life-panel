@@ -38,13 +38,16 @@ export function getWeekOfYear(date: Date = new Date(), weekStartDay: number = 0)
   // ADJUST THE YEAR START DATE BACK TO THE FIRST START OF WEEK IN THE YEAR
   yearStart.setDate(yearStart.getDate() - yearStartOffset);
 
-  // CALCULATE THE NUMBER OF MILLISECONDS BETWEEN TARGET WEEK START AND YEAR START WEEK START
-  const diff = target.getTime() - yearStart.getTime();
-
   // CALCULATE THE NUMBER OF WEEKS (MILLISECONDS DIVIDED BY MILLISECONDS IN A WEEK)
   // ADD 1 TO MAKE IT 1-BASED
-  const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
-  const weekNumber = Math.floor(diff / oneWeekMs) + 2;
+   const oneWeekMs = 7 * 24 * 60 * 60 * 1000;
+  const diff = target.getTime() - yearStart.getTime();
+  let weekNumber = Math.floor(diff / oneWeekMs) + 2;
+
+  // Wrap around so anything above 52 becomes 1
+  if (weekNumber > 52) {
+    weekNumber = ((weekNumber - 1) % 53) + 1;
+  }
 
   return weekNumber;
 }
