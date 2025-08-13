@@ -1,9 +1,10 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
+  import { mount, onMount } from "svelte";
   import {
     userPreferences,
     type MeetingDay,
-  } from "$lib/stores/userPreferences";
+  } from "$lib/stores/userPreferences.store";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
@@ -100,14 +101,23 @@
     { value: 5, label: "Friday" },
     { value: 6, label: "Saturday" },
   ];
+
+  onMount(() => {
+    console.log(">>> Store Values", $userPreferences);
+  });
 </script>
 
-<SectionCard bgColor="#E8E8E8">
+<SectionCard bgColor="#E8E8E8" padding="md">
   <h2
     class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
   >
-    {isCurrentWeek ? "Current" : "Viewing"} Reading Plan
+    {#if isCurrentWeek}
+      Current Reading Plan
+    {:else}
+      <span class="italic">Viewing Reading Plan</span>
+    {/if}
   </h2>
+
   <div
     class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
   >
@@ -124,7 +134,11 @@
     <h2
       class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
     >
-      {isCurrentWeek ? "Current" : "Viewing"} Week
+      {#if isCurrentWeek}
+        Current Week
+      {:else}
+        <span class="italic">Viewing Week</span>
+      {/if}
     </h2>
 
     <!-- Week navigation arrows -->
@@ -235,35 +249,4 @@
       </div>
     {/if}
   </div>
-
-  <!-- Optional: Display the reading plan content -->
-  <!-- {#if reading}
-    <div class="mt-4 p-3 bg-white rounded-[13px] border border-[#CDCFCE]">
-      <h3 class="font-medium text-[var(--color-text-primary)] mb-2">
-        This Week's Reading
-      </h3>
-      {#if reading.plan && reading.plan.length > 0}
-        <ul class="space-y-1 mb-3">
-          {#each reading.plan as planItem}
-            <li class="text-sm text-[var(--color-text-secondary)]">
-              • {planItem}
-            </li>
-          {/each}
-        </ul>
-      {/if}
-
-      {#if reading.memoryVerses && reading.memoryVerses.length > 0}
-        <h4 class="font-medium text-[var(--color-text-primary)] mb-2">
-          Memory Verses
-        </h4>
-        <ul class="space-y-1">
-          {#each reading.memoryVerses as verse}
-            <li class="text-sm text-[var(--color-text-secondary)] italic">
-              "{verse}"
-            </li>
-          {/each}
-        </ul>
-      {/if}
-    </div>
-  {/if} -->
 </SectionCard>

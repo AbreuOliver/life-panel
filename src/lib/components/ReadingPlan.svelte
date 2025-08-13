@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { userPreferences } from "$lib/stores/userPreferences";
+  import { userPreferences } from "$lib/stores/userPreferences.store.ts";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
@@ -104,19 +104,36 @@
   const circumference = 2 * Math.PI * radius;
 
   $: dashOffset = circumference * (1 - completionPercent);
+
+  // Precompute 5-day grouped passages
+  $: groupedPassages = reading?.plan
+    ? Array.from({ length: 5 }, (_, dayIndex) => {
+        const chunkSize = Math.ceil(reading.plan.length / 5);
+        const start = dayIndex * chunkSize;
+        return reading.plan.slice(start, start + chunkSize);
+      })
+    : [];
+
+  // Ensure completion state matches grouped days
+  $: if (
+    groupedPassages.length > 0 &&
+    allCompleted.length !== groupedPassages.length
+  ) {
+    allCompleted = Array(groupedPassages.length).fill(false);
+  }
 </script>
 
-<SectionCard>
-  <div class="flex items-center justify-between">
+<SectionCard padding="none">
+  <div class="flex items-center justify-between p-6">
     <h2
       class="pl-1 text-[13px] uppercase font-inter font-medium mb-0 text-[var(--color-text-muted)]"
     >
       Reading Plan
     </h2>
     <div class="flex">
-      <!-- <p class="text-[var(--color-text-secondary)] pr-2">
-        {completionPercent * 100}%f
-      </p> -->
+      <p class="text-[var(--color-text-secondary)] pr-2">
+        {completionPercent * 100}% Read
+      </p>
       <!-- Animated circular progress -->
       <svg class="w-6 h-6" viewBox="0 0 24 24">
         <!-- Background track -->
@@ -145,8 +162,7 @@
       </svg>
     </div>
   </div>
-
-  <div class="min-h-10 py-2.5">
+  <div class="px-6">
     <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
       {#if isCurrentWeek}
         Today
@@ -159,36 +175,39 @@
         • {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
       </span>
     </p>
-
-    <div
-      class="w-[109.5%] flex items-center justify-center bg-white h-[1px] -ml-4 mt-4 mb-6"
-    ></div>
-
-    {#if reading?.plan}
-      {#each reading.plan as passage, index}
-        <div class="flex items-center justify-between space-y-2">
-          <!-- Left: Day circle + text -->
-          <div class="flex items-center gap-4 flex-1">
-            <div
-              class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525] text-sm font-thin"
-            >
-              <span class="text-[12px] font-inter text-neutral-400">Day</span>
-              <span class="text-md font-inter font-semibold text-neutral-50">
-                {index + 1}
-              </span>
-            </div>
-            <p
-              class="font-manrope text-lg leading-7 text-[var(--color-text-muted)]"
-            >
-              {passage}
-            </p>
+  </div>
+  <div
+    class="w-full flex items-center justify-center bg-white h-[1px] my-6"
+  ></div>
+  <div class="min-h-10 flex-col justify-start text-left px-4 space-y-4">
+    {#if groupedPassages.length}
+      {#each groupedPassages as passages, dayIndex}
+        <div class="flex items-center gap-2 w-full flex-1">
+          <div
+            class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525]"
+          >
+            <span class="text-[12px] font-inter text-neutral-400">Day</span>
+            <span class="text-md font-inter font-semibold text-neutral-50">
+              {dayIndex + 1}
+            </span>
           </div>
+          <p
+            class="font-manrope text-lg leading-7 text-[var(--color-text-muted)] flex-1"
+          >
+            {#each passages as passage, i}
+              {passage}
+              {#if i < passages.length - 1}
+                <span class="text-[var(--color-primary-green)] pl-1 pr-2"
+                  >&amp;</span
+                >
+              {/if}
+            {/each}
+          </p>
 
-          <!-- Right: Checkbox -->
-          {#if allCompleted[index]}
+          {#if allCompleted[dayIndex]}
             <button
-              on:click={() => toggleDayCompletion(index)}
-              aria-label={`Mark Week ${currentWeek} Day ${index + 1} as incomplete`}
+              on:click={() => toggleDayCompletion(dayIndex)}
+              aria-label={`Mark Week ${currentWeek} Day ${dayIndex + 1} as incomplete`}
               class="flex items-center justify-center w-12 h-12 rounded-full bg-[var(--color-primary-green)] border-[var(--color-primary-green)] text-white"
             >
               <svg
@@ -207,9 +226,9 @@
             </button>
           {:else}
             <button
-              on:click={() => toggleDayCompletion(index)}
-              aria-label={`Mark Week ${currentWeek} Day ${index + 1} as complete`}
-              class="flex mt-0 items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent -mt-2S"
+              on:click={() => toggleDayCompletion(dayIndex)}
+              aria-label={`Mark Week ${currentWeek} Day ${dayIndex + 1} as complete`}
+              class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
             >
             </button>
           {/if}

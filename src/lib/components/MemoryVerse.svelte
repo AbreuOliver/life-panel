@@ -2,9 +2,8 @@
   import SectionCard from "$lib/components/SectionCard.svelte";
   import EyeOpen from "./icons/EyeOpen.svelte";
   import EyeClosed from "./icons/EyeClosed.svelte";
-  import { userPreferences } from "$lib/stores/userPreferences";
+  import { userPreferences } from "$lib/stores/userPreferences.store";
   import kjv from "$lib/data/kjv.json";
-  import { derived } from "svelte/store";
   import { getWeekOfYear } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
 
@@ -13,57 +12,31 @@
     revealed = !revealed;
   }
 
-  const selectedPlan = derived(userPreferences, ($prefs) => {
-    console.log("selectedPlan:", $prefs.readingPlan);
-    return $prefs.readingPlan;
-  });
+  // Read values directly from store
+  $: selectedPlan = $userPreferences.readingPlan;
+  $: meetingDay = $userPreferences.meetingDay;
+  $: weekOffset = $userPreferences.weekOffset;
 
-  const meetingDay = derived(userPreferences, ($prefs) => {
-    console.log("meetingDay:", $prefs.meetingDay);
-    return $prefs.meetingDay;
-  });
+  // Compute currentWeek whenever meetingDay or weekOffset changes
+  $: {
+    const today = new Date();
+    const displayDate = new Date(today);
+    displayDate.setDate(displayDate.getDate() + weekOffset * 7);
+    currentWeek = getWeekOfYear(displayDate, meetingDay);
+  }
 
-  // Add weekOffset derived store
-  const weekOffset = derived(userPreferences, ($prefs) => {
-    console.log("weekOffset:", $prefs.weekOffset);
-    return $prefs.weekOffset;
-  });
+  let currentWeek: number;
 
-  // Update currentWeek to use weekOffset instead of always using today
-  const currentWeek = derived(
-    [meetingDay, weekOffset],
-    ([$meetingDay, $weekOffset]) => {
-      const today = new Date();
-      // Calculate displayDate based on weekOffset
-      const displayDate = new Date(today);
-      displayDate.setDate(displayDate.getDate() + $weekOffset * 7);
+  // Load reading plan data whenever currentWeek or selectedPlan changes
+  $: readingPlanData = selectedPlan
+    ? getReadingPlan(currentWeek, selectedPlan)
+    : null;
 
-      const week = getWeekOfYear(displayDate, $meetingDay);
-      console.log("currentWeek:", week, "for offset:", $weekOffset);
-      return week;
-    }
-  );
-
-  const readingPlanData = derived(
-    [currentWeek, selectedPlan],
-    ([$currentWeek, $selectedPlan]) => {
-      console.log("getReadingPlan args:", { $currentWeek, $selectedPlan });
-      if (!$selectedPlan) return null;
-      const data = getReadingPlan($currentWeek, $selectedPlan);
-      console.log("readingPlanData:", data);
-      return data;
-    }
-  );
-
+  // Expand memory verses into displayable text
   function expandVerseRange(ref: string): string[] {
-    // Match pattern like: Book Chapter:StartVerse-EndVerse or Book Chapter:Verse
-    // Examples: "Psalms 37:4-6", "Genesis 1:1"
     const rangeRegex = /^(.+?) (\d+):(\d+)(-(\d+))?$/;
     const match = ref.match(rangeRegex);
-    if (!match) {
-      // Not a recognized pattern, return as-is in an array
-      return [ref];
-    }
+    if (!match) return [ref];
     const book = match[1];
     const chapter = match[2];
     const startVerse = parseInt(match[3]);
@@ -76,58 +49,37 @@
     return verses;
   }
 
-  let memoryVerseDisplay: string | string[] = "";
-  let verseText: string = "";
+  function formatVerseText(refs: string | string[]): string {
+    if (!refs) return "";
+    const arrayRefs = Array.isArray(refs) ? refs : [refs];
+    return arrayRefs
+      .map((ref) => {
+        const expanded = expandVerseRange(ref);
+        return expanded
+          .map((key) => kjv[key] ?? "")
+          .filter(Boolean)
+          .map((text) =>
+            text.replace(/#/g, "\n").replace(/\[([^\]]+)\]/g, "$1")
+          )
+          .join(" ");
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
 
-  $: memoryVersesData.subscribe(({ refs, verseText: text }) => {
-    console.log("Final memoryVersesData output:", { refs, text });
-    memoryVerseDisplay = refs;
-    verseText = text;
-  });
+  // Compute memory verses display whenever readingPlanData changes
+  $: memoryVersesData = readingPlanData?.memoryVerses
+    ? {
+        refs: readingPlanData.memoryVerses,
+        verseText: formatVerseText(readingPlanData.memoryVerses),
+      }
+    : { refs: "", verseText: "" };
 
-  const memoryVersesData = derived(readingPlanData, ($readingPlanData) => {
-    if (!$readingPlanData || !$readingPlanData.memoryVerses) {
-      return { refs: "", verseText: "" };
-    }
-
-    const refs = $readingPlanData.memoryVerses;
-
-    function formatVerse(text: string): string {
-      let formatted = text.replace(/#/g, "\n");
-      formatted = formatted.replace(/\[([^\]]+)\]/g, "$1");
-      return formatted;
-    }
-
-    let verseText = "";
-
-    if (Array.isArray(refs)) {
-      verseText = refs
-        .map((ref) => {
-          // expand range refs into individual verse keys
-          const expandedRefs = expandVerseRange(ref);
-          const verses = expandedRefs
-            .map((key) => kjv[key] ?? "")
-            .filter(Boolean)
-            .map(formatVerse)
-            .join(" ");
-          return verses;
-        })
-        .filter(Boolean)
-        .join(" ");
-    } else {
-      const expandedRefs = expandVerseRange(refs);
-      verseText = expandedRefs
-        .map((key) => kjv[key] ?? "")
-        .filter(Boolean)
-        .map(formatVerse)
-        .join(" ");
-    }
-
-    return { refs, verseText };
-  });
+  $: memoryVerseDisplay = memoryVersesData.refs;
+  $: verseText = memoryVersesData.verseText;
 </script>
 
-<SectionCard>
+<SectionCard padding="lg">
   <h2
     class="pl-1 text-[13px] uppercase font-inter font-medium mb-1 text-[var(--color-text-muted)]"
   >
@@ -155,13 +107,15 @@
     class="flex items-center py-0.5 px-3 rounded-2xl min-h-9 cursor-pointer bg-[var(--color-primary-green)] mt-2 ml-auto"
     aria-pressed={revealed}
   >
-    {#if revealed}
-      <EyeClosed color="#1E1E1E" size={16} />
-    {:else}
-      <EyeOpen color="#1E1E1E" size={16} />
-    {/if}
+    <div class="flex items-center mt-0.5">
+      {#if revealed}
+        <EyeClosed color="#1E1E1E" size={16} />
+      {:else}
+        <EyeOpen color="#1E1E1E" size={16} />
+      {/if}
+    </div>
     <p class="font-manrope text-sm pr-2 py-1">
-      {revealed ? "Hide Verse" : "Reveal Verse"}
+      {revealed ? "Hide Verse" : "Show Verse"}
     </p>
   </button>
 </SectionCard>

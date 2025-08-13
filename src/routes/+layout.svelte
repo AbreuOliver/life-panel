@@ -8,13 +8,9 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="grid grid-cols-[1fr_minmax(0,70ch)_1fr] min-h-screen">
-  <div></div>
-  <!-- left gutter -->
-  <div class="px-4 sm:px-0 space-y-4">
-    <Header />
+<div class="min-h-screen flex flex-col space-y-4">
+  <Header />
+  <main class="flex-1 max-w-[70ch] mx-auto px-4 sm:px-0 w-full">
     <slot />
-  </div>
-  <div></div>
-  <!-- right gutter -->
+  </main>
 </div>
