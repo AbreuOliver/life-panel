@@ -133,10 +133,10 @@
       {#if !isCurrentWeek}
         <button
           on:click={goToCurrentWeek}
-          class="flex justfy-center items-center px-2.5 py-1.75 text-xs rounded-2xl bg-[var(--color-primary-green)] text-white hover:opacity-80 transition-opacity"
+          class="flex justfy-center items-center px-3 py-1.5 text-xs rounded-2xl bg-[var(--color-text-secondary)] text-white hover:opacity-80 transition-opacity"
           aria-label="Go to Current Week"
         >
-          Back to Current Week
+          <span class="mt-0.5 text-white">View Current Week</span>
         </button>
       {/if}
       <div

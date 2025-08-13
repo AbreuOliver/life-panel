@@ -148,7 +148,13 @@
 
   <div class="min-h-10 py-2.5">
     <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
-      {isCurrentWeek ? "Today" : "Viewing"}
+      {#if isCurrentWeek}
+        Today
+      {:else if weekOffset < 0}
+        {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
+      {:else if weekOffset > 0}
+        {weekOffset} Week{weekOffset !== 1 ? "s" : ""} Ahead
+      {/if}
       <span class="text-[var(--color-text-muted)]">
         • {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
       </span>
@@ -203,7 +209,7 @@
             <button
               on:click={() => toggleDayCompletion(index)}
               aria-label={`Mark Week ${currentWeek} Day ${index + 1} as complete`}
-              class="flex mt-0 items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
+              class="flex mt-0 items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent -mt-2S"
             >
             </button>
           {/if}
