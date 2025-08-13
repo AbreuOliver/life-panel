@@ -32,3 +32,10 @@
 .text-primary {
   color: var(--color-primary-green);
 }
+
+html,
+body {
+  overscroll-behavior-y: none;
+  height: 100%;
+  margin: 0;
+}
