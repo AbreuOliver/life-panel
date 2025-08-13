@@ -14,3 +14,12 @@
     <slot />
   </main>
 </div>
+
+<style>
+  main {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+</style>
