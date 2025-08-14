@@ -1,4 +1,3 @@
-// src/utils/getReadingPlan.ts
 import plansData from '$lib/data/plans.json';
 
 type PlanEntry = {

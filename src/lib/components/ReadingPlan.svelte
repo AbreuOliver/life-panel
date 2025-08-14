@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { userPreferences } from "$lib/stores/userPreferences.store.ts";
+  import { userPreferences } from "$lib/stores/userPreferences.store";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
   import SectionCard from "$lib/components/SectionCard.svelte";
