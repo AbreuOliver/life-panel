@@ -18,10 +18,10 @@
 </script>
 
 <header
-  class={`flex items-center min-h-16 pb-3 sticky top-0 z-10 w-screen shadow-none px-8 sm:px-6 ${modeClass}`}
+  class={`flex items-center min-h-16  sticky top-0 z-10 w-screen shadow-none px-8 sm:px-6 ${modeClass}`}
 >
   <h1
-    class="max-w-[30ch] pt-6 mx-auto w-full font-manrope text-3xl font-bold tracking-tight"
+    class="max-w-[30ch] pt-6 pb-3 mx-auto w-full font-manrope text-3xl font-bold tracking-tight"
   >
     <span class="tracking-tighter">HEAR</span> Journal
   </h1>
