@@ -171,15 +171,15 @@
       {:else if weekOffset > 0}
         {weekOffset} Week{weekOffset !== 1 ? "s" : ""} Ahead
       {/if}
-      <span class="text-[var(--color-text-muted)]">
+      <span class="date text-[var(--color-text-muted)]">
         • {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
       </span>
     </p>
   </div>
   <div
-    class="w-full flex items-center justify-center bg-white h-[1px] my-6"
+    class="w-full flex items-center justify-center bg-[var(--color-text-secondary)] h-[2px] my-6"
   ></div>
-  <div class="min-h-10 flex-col justify-start text-left px-4 space-y-4">
+  <div class="min-h-10 flex-col justify-start text-left px-4 space-y-4 pb-6">
     {#if groupedPassages.length}
       {#each groupedPassages as passages, dayIndex}
         <div class="flex items-center gap-2 w-full flex-1">
@@ -192,7 +192,7 @@
             </span>
           </div>
           <p
-            class="font-manrope text-lg leading-7 text-[var(--color-text-muted)] flex-1"
+            class="font-manrope text-lg leading-7 text-[var(--color-text-muted)] flex-1 pl-2"
           >
             {#each passages as passage, i}
               {passage}
@@ -241,3 +241,10 @@
     {/if}
   </div>
 </SectionCard>
+
+<style>
+  span.date {
+    display: inline-block;
+    margin-left: 0.5rem; /* space from main text */
+  }
+</style>

@@ -361,8 +361,8 @@
   },
   "F260_WholeBible": {
     "1": {
-      "plan": ["Genesis 1-2", "Luke 2", "Luke 3", "Luke 4", "Luke 5"],
-      "memoryVerses": ["Genesis 5:1-2"]
+      "plan": ["Genesis 1", "Genesis 2", "Genesis 3", "Genesis 4", "Genesis 6", "Genesis 7", "Genesis 8", "Genesis 9", "Job 1", "Job 2"],
+      "memoryVerses": ["Genesis 1:27", "Hebrews 11:7"]
     },
     "2": {
       "plan": ["Luke 6", "Luke 7", "Luke 8", "Luke 9", "Luke 10"],
