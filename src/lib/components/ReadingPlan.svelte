@@ -128,7 +128,7 @@
     <h2
       class="pl-1 text-[13px] uppercase font-inter font-medium mb-0 text-[var(--color-text-muted)]"
     >
-      Reading Plan
+      Bible Reading
     </h2>
     <div class="flex">
       <p class="text-[var(--color-text-secondary)] pr-2">
@@ -163,16 +163,17 @@
     </div>
   </div>
   <div class="px-6">
-    <p class="font-manrope text-2xl grow-1 font-semibold text-white mb-3">
+    <p class="font-manrope text-2xl text-left font-semibold text-white mb-3">
       {#if isCurrentWeek}
-        Today
+        Today <span class="date text-[var(--color-text-muted)]">•</span>
       {:else if weekOffset < 0}
         {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
       {:else if weekOffset > 0}
         {weekOffset} Week{weekOffset !== 1 ? "s" : ""} Ahead
       {/if}
+
       <span class="date text-[var(--color-text-muted)]">
-        • {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
+        {isCurrentWeek ? formatDate(new Date()) : weekRangeString}
       </span>
     </p>
   </div>

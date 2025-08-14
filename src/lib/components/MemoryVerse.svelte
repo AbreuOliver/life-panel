@@ -92,7 +92,7 @@
       : memoryVerseDisplay}
   </p>
 
-  <div class="min-h-10 py-8 relative">
+  <div class="min-h-10 pt-7 pb-8 relative">
     <p
       class="font-manrope text-lg/6 pl-0.5 text-[var(--color-text-muted)] transition-filter duration-300 whitespace-pre-line"
       class:blur-sm={!revealed}
