@@ -24,19 +24,19 @@
 
   <!-- Warning stripe - semantically indicates caution/alert -->
   <div
-    class="h-6 w-full bg-amber-500 relative overflow-hidden"
+    class="h-4 w-full bg-amber-500 relative overflow-hidden"
     role="alert"
     aria-label="Warning indicator"
   >
     <!-- Diagonal stripes using Tailwind -->
     <div
       class="absolute inset-0 opacity-80"
-      style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.3) 10px, rgba(0,0,0,0.3) 20px);"
+      style="background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(0,0,0,0.3) 10px, rgba(0,0,0,0.3) 20px);"
     ></div>
   </div>
 
   <footer
-    class="flex items-center justify-center text-center min-h-12 font-medium leading-tight p-2 bg-amber-400 font-mono"
+    class="flex items-center justify-center text-center min-h-12 font-medium leading-tight px-3 py-6 bg-amber-400 font-mono"
   >
     <span class="sr-only">Current browser and device information:</span>
     User Agent Info: {uaDisplay}
