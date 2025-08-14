@@ -165,7 +165,7 @@
   <div class="px-6">
     <p class="font-manrope text-2xl text-left font-semibold text-white mb-3">
       {#if isCurrentWeek}
-        Today <span class="date text-[var(--color-text-muted)]">•</span>
+        Today <span class="text-[var(--color-text-muted)]">•</span>
       {:else if weekOffset < 0}
         {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
       {:else if weekOffset > 0}
@@ -188,7 +188,7 @@
             class="flex flex-col items-center justify-center w-14 h-14 rounded-full bg-[#252525]"
           >
             <span class="text-[12px] font-inter text-neutral-400">Day</span>
-            <span class="text-md font-inter font-semibold text-neutral-50">
+            <span class="text-md font-inter font-normal text-neutral-50">
               {dayIndex + 1}
             </span>
           </div>
@@ -246,6 +246,6 @@
 <style>
   span.date {
     display: inline-block;
-    margin-left: 0.5rem; /* space from main text */
+    margin-left: 0px;
   }
 </style>
