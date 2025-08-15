@@ -7,22 +7,51 @@
       content="width=device-width, initial-scale=1, maximum-scale=1"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="default"
+      id="apple-status-bar"
+    />
+    <meta name="theme-color" content="#1E1E1E" id="theme-color" />
     %sveltekit.head%
     <!-- PRECONNECT (FOR PERFORMANCE) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <!-- INTER AND MANROP, ALL WEIGHTS (100–900), NORMAL AND ITALIC -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Manrope:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="apple-touch-icon" href="../static/icon-512.png" />
+
+    <script>
+      // Dynamic status bar color configuration
+      (function () {
+        const ua = navigator.userAgent;
+        const isIOS = /iPhone|iPad/.test(ua);
+
+        // Get meta elements
+        const appleStatusBar = document.getElementById("apple-status-bar");
+        const themeColorMeta = document.getElementById("theme-color");
+
+        if (isIOS) {
+          // iOS gets green color
+          if (appleStatusBar) {
+            appleStatusBar.setAttribute("content", "black-translucent");
+          }
+          if (themeColorMeta) {
+            themeColorMeta.setAttribute("content", "#82D844");
+          }
+        } else {
+          // Android and everything else gets dark color
+          if (themeColorMeta) {
+            themeColorMeta.setAttribute("content", "#1E1E1E");
+          }
+        }
+      })();
+    </script>
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">%sveltekit.body%</div>
   </body>
 </html>
-
-<style></style>
