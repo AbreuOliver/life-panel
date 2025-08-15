@@ -22,31 +22,20 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Manrope:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="apple-touch-icon" href="../static/icon-512.png" />
+    <link rel="apple-touch-icon" href="/icon-512.png" />
 
     <script>
-      // Dynamic status bar color configuration
       (function () {
         const ua = navigator.userAgent;
         const isIOS = /iPhone|iPad/.test(ua);
 
-        // Get meta elements
-        const appleStatusBar = document.getElementById("apple-status-bar");
         const themeColorMeta = document.getElementById("theme-color");
 
         if (isIOS) {
-          // iOS gets green color
-          if (appleStatusBar) {
-            appleStatusBar.setAttribute("content", "black-translucent");
-          }
-          if (themeColorMeta) {
-            themeColorMeta.setAttribute("content", "#82D844");
-          }
+          // keep solid green for iOS window color (where supported)
+          if (themeColorMeta) themeColorMeta.setAttribute("content", "#82D844");
         } else {
-          // Android and everything else gets dark color
-          if (themeColorMeta) {
-            themeColorMeta.setAttribute("content", "#1E1E1E");
-          }
+          if (themeColorMeta) themeColorMeta.setAttribute("content", "#1E1E1E");
         }
       })();
     </script>

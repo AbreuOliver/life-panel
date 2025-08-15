@@ -13,7 +13,7 @@ export interface UserPreferences {
 }
 
 export const userPreferences = writable<UserPreferences>({
-  meetingDay: 5,
+  meetingDay: 0,
   readingPlan: 'New Testament',
   completedDays: [],
   weekOffset: 0 // ← Default to current week

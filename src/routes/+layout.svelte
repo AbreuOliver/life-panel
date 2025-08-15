@@ -35,7 +35,7 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="min-h-screen flex flex-col">
+<div class="min-h-screen flex flex-col overflow-x-hidden">
   {#if showSplash}
     <Splash onDone={handleSplashDone} />
   {/if}
