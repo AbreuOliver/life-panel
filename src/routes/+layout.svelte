@@ -1,6 +1,6 @@
 <script lang="ts">
   import "../app.css";
-  import favicon from "../../static/HEAR-Journal.ico";
+  import favicon from "$lib/assets/HEAR-Journal.ico";
   import Header from "$lib/components/Header.svelte";
   import Splash from "$lib/components/SplashScreen.svelte";
   import { browser } from "$app/environment";
@@ -12,11 +12,6 @@
 
   if (browser) {
     uaDisplay = parseUserAgent(window.navigator.userAgent);
-
-    // Simulate initialization
-    setTimeout(() => {
-      showSplash = false;
-    }, 1500);
   }
 
   const updateSW = registerSW({
@@ -30,6 +25,10 @@
       console.log("App ready to work offline");
     },
   });
+
+  function handleSplashDone() {
+    showSplash = false;
+  }
 </script>
 
 <svelte:head>
@@ -37,14 +36,14 @@
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
-  <Splash visible={showSplash} />
+  {#if showSplash}
+    <Splash onDone={handleSplashDone} />
+  {/if}
 
   <Header />
-
   <main class="flex-1 max-w-[70ch] mx-auto px-4 sm:px-0 w-full py-4">
     <slot />
   </main>
-
   <div
     class="h-4 w-full bg-amber-500 relative overflow-hidden"
     role="alert"
@@ -55,7 +54,6 @@
       style="background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(0,0,0,0.3) 10px, rgba(0,0,0,0.3) 20px);"
     ></div>
   </div>
-
   <footer
     class="flex items-center justify-center text-center min-h-12 font-medium leading-tight px-3 py-6 bg-amber-400 font-mono"
   >
