@@ -129,48 +129,45 @@
 
 <SectionCard bgColor="#E8E8E8" padding="md">
   <!-- Collapsed Header / Toggle -->
-  <div class="w-full">
+  <div
+    class="w-full p-3 rounded-[13px] border border-[#CDCFCE] focus:outline-none"
+  >
     <button
-      class="flex items-center w-full p-3 rounded-[13px] border border-[#CDCFCE] focus:outline-none"
+      class="flex items-center w-full"
       on:click={toggleCardExpanded}
       on:keydown={onHeaderKeydown}
       aria-expanded={cardExpanded}
       aria-controls={cardPanelId}
     >
-      <div class="text-left mr-auto">
-        <p
-          class="text-sm font-inter uppercase text-[var(--color-text-secondary)] mb-2"
-        >
+      <!-- Left column -->
+      <div class="flex flex-col items-start text-left mr-auto space-y-2">
+        <p class="text-sm font-inter uppercase text-[var(--color-text-muted)]">
           Current Plan and Week
         </p>
+
         <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
-          <span
-            class="text-[var(--color-primary-green)
-          
-          ">{selectedPlan}</span
-          >
+          {selectedPlan}
           •
           <span class="text-[var(--color-primary-green)]"
             >Week {currentWeek}</span
           >
         </p>
+
+        <p
+          class="font-manrope font-semibold text-[var(--color-text-secondary)]"
+        >
+          {weekRangeString}
+        </p>
       </div>
-      <!-- <ArrowDown
+
+      <!-- Right side: arrow pushed far right -->
+      <ArrowDown
         up={cardExpanded}
         color={cardExpanded
           ? "var(--color-primary-green)"
           : "var(--color-text-muted)"}
         size={24}
-      /> -->
-      <p
-        class={`flex justify-center items-center text-xs py-1.75 px-3 rounded-xl text-[var(--color-text-muted) ${
-          cardExpanded
-            ? "bg-[var(--color-primary-green)]/60"
-            : "bg-transparent border-[var(--color-text-muted)]/60 border-1"
-        }`}
-      >
-        {cardExpanded ? "Close" : "More Details"}
-      </p>
+      />
     </button>
   </div>
 
@@ -216,7 +213,7 @@
           {/if} -->
 
           {#if isCurrentWeek}
-            Current Week
+            Present Week
           {:else if weekOffset < 0}
             {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
           {:else if weekOffset > 0}
@@ -290,14 +287,14 @@
               >
             </p>
             <div class="flex items-center ml-auto">
-              <!-- <ArrowDown
+              <ArrowDown
                 up={meetingExpanded}
                 color={meetingExpanded
                   ? "var(--color-primary-green)"
                   : "var(--color-text-muted)"}
                 size={28}
-              /> -->
-              <p
+              />
+              <!-- <p
                 class={`flex justify-center items-center text-xs py-1.75 px-2 rounded-xl text-[var(--color-text-muted) ${
                   meetingExpanded
                     ? "bg-[var(--color-primary-green)]/60"
@@ -305,7 +302,7 @@
                 }`}
               >
                 {meetingExpanded ? "Save & Close" : "Change Meeting Day"}
-              </p>
+              </p> -->
             </div>
           </button>
           {#if meetingExpanded}
