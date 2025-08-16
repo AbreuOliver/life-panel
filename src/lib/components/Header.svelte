@@ -45,7 +45,7 @@
   }
 
   .text-primary-green {
-    color: #82d844;
+    color: var(--color-primary-green);
   }
 
   .text-white {

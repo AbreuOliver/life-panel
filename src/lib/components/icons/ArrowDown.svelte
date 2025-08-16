@@ -10,10 +10,10 @@
   height={size}
   viewBox="0 0 24 24"
   class="mr-2"
-  style="transform: rotate({up ? 180 : 0}deg); transition: transform 0.3s ease;"
+  style="transform: rotate({up ? 0 : 180}deg); transition: transform 0.3s ease;"
 >
   <path
     fill={color}
-    d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175"
+    d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34m-4.293 5.953a1 1 0 0 0-1.414 0l-3 3A1 1 0 0 0 9 14h6c.217 0 .433-.07.613-.21l.094-.083a1 1 0 0 0 0-1.414z"
   />
 </svg>

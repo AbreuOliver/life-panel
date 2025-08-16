@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import { mount, onMount } from "svelte";
+  import { onMount } from "svelte";
   import {
     userPreferences,
     type MeetingDay,
@@ -22,6 +22,7 @@
   $: weekOffset = $userPreferences.weekOffset;
 
   // ==================== DERIVED REACTIVE VALUES ====================
+  let displayDate: Date;
 
   // Calculate display date based on week offset
   $: {
@@ -29,7 +30,6 @@
     d.setDate(d.getDate() + weekOffset * 7);
     displayDate = d;
   }
-  let displayDate: Date;
 
   // Week start day is the meeting day
   $: startDay = meetingDay;
@@ -57,16 +57,19 @@
   $: isCurrentWeek = weekOffset === 0;
 
   // ==================== LOCAL STATE ====================
-  // UI state for expanding/collapsing meeting day selector
-  let expanded = false;
+  // Separate UI states
+  let cardExpanded = false; // controls entire card accordion
+  let meetingExpanded = false; // controls Meeting Day selector accordion
 
   // ==================== EVENT HANDLERS ====================
-  // Toggle expanded state for meeting day selector panel
-  function toggleExpanded() {
-    expanded = !expanded;
+  function toggleCardExpanded() {
+    cardExpanded = !cardExpanded;
   }
 
-  // Update the meeting day in userPreferences store on user selection
+  function toggleMeetingExpanded() {
+    meetingExpanded = !meetingExpanded;
+  }
+
   function changeMeetingDay(newDay: MeetingDay) {
     userPreferences.update((prefs) => ({
       ...prefs,
@@ -74,7 +77,6 @@
     }));
   }
 
-  // Navigate weeks by changing the offset
   function changeWeek(delta: number) {
     userPreferences.update((prefs) => ({
       ...prefs,
@@ -82,7 +84,6 @@
     }));
   }
 
-  // Return to current week
   function goToCurrentWeek() {
     userPreferences.update((prefs) => ({
       ...prefs,
@@ -91,7 +92,6 @@
   }
 
   // ==================== STATIC DATA ====================
-  // Days of the week options for meeting day selection
   const daysOfWeek = [
     { value: 0, label: "Sunday" },
     { value: 1, label: "Monday" },
@@ -103,150 +103,258 @@
   ];
 
   onMount(() => {
-    console.log(">>> Store Values", $userPreferences);
+    // optional debugging
+    // console.log(">>> Store Values", $userPreferences);
   });
+
+  // ==================== ACCESSIBILITY IDS ====================
+  const cardPanelId = "plan-week-panel";
+  const meetingPanelId = "meeting-day-panel";
+
+  // Space/Enter keyboard support for header button
+  function onHeaderKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleCardExpanded();
+    }
+  }
+
+  function onMeetingKeydown(e: KeyboardEvent) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      toggleMeetingExpanded();
+    }
+  }
 </script>
 
 <SectionCard bgColor="#E8E8E8" padding="md">
-  <h2
-    class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 cursor-auto text-[var(--color-text-secondary)]"
-  >
-    {#if isCurrentWeek}
-      Current Reading Plan
-    {:else}
-      <span class="italic">Viewing Reading Plan</span>
-    {/if}
-  </h2>
-
-  <div
-    class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
-  >
-    <p
-      class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
-    >
-      {selectedPlan}
-      <span class="text-[var(--color-text-muted)]">• {today.getFullYear()}</span
-      >
-    </p>
-  </div>
-
-  <div class="flex w-full items-center mt-5">
-    <h2
-      class="pl-1 text-[13px] uppercase font-inter font-medium mb-1.5 text-[var(--color-text-secondary)]"
-    >
-      {#if isCurrentWeek}
-        Current Week
-      {:else}
-        <span class="italic">Viewing Week</span>
-      {/if}
-    </h2>
-
-    <!-- Week navigation arrows -->
-    <div class="flex items-center gap-1 ml-auto mb-1.5">
-      <!-- Optional: "Go to Current Week" button when not on current week -->
-      {#if !isCurrentWeek}
-        <button
-          on:click={goToCurrentWeek}
-          class="flex justfy-center items-center px-3 py-1.5 text-xs rounded-2xl bg-[var(--color-text-secondary)] text-white hover:opacity-80 transition-opacity"
-          aria-label="Go to Current Week"
-        >
-          <span class="mt-0.5 text-white">View Current Week</span>
-        </button>
-      {/if}
-      <div
-        class="flex justfy-center items-center border border-neutral-300 rounded-2xl"
-      >
-        <button
-          on:click={() => changeWeek(-1)}
-          class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
-          aria-label="Previous Week"
-        >
-          <NarrowArrow
-            direction="right"
-            size={20}
-            color="var(--color-text-muted)"
-          />
-        </button>
-        <button
-          on:click={() => changeWeek(1)}
-          class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
-          aria-label="Next Week"
-        >
-          <NarrowArrow
-            direction="left"
-            size={20}
-            color="var(--color-text-muted)"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="flex flex-col min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
-  >
+  <!-- Collapsed Header / Toggle -->
+  <div class="w-full">
     <button
-      on:click={toggleExpanded}
-      class="flex items-center bg-transparent min-h-6.5 cursor-pointer grow-1 w-full"
-      aria-expanded={expanded}
-      aria-controls="calendar-edit"
+      class="flex items-center w-full p-3 rounded-[13px] border border-[#CDCFCE] focus:outline-none"
+      on:click={toggleCardExpanded}
+      on:keydown={onHeaderKeydown}
+      aria-expanded={cardExpanded}
+      aria-controls={cardPanelId}
     >
-      <p
-        class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)] text-left"
-      >
-        Week {currentWeek}
-        <span class="text-[var(--color-text-secondary)]"
-          >• {weekRangeString}</span
+      <div class="text-left mr-auto">
+        <p
+          class="text-sm font-inter uppercase text-[var(--color-text-secondary)] mb-2"
         >
-      </p>
-      <div class="flex items-center ml-auto">
-        <ArrowDown
-          up={expanded}
-          color={expanded
-            ? "var(--color-primary-green)"
-            : "var(--color-text-muted)"}
-          size={28}
-        />
+          Current Plan and Week
+        </p>
+        <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
+          <span
+            class="text-[var(--color-primary-green)
+          
+          ">{selectedPlan}</span
+          >
+          •
+          <span class="text-[var(--color-primary-green)]"
+            >Week {currentWeek}</span
+          >
+        </p>
       </div>
+      <!-- <ArrowDown
+        up={cardExpanded}
+        color={cardExpanded
+          ? "var(--color-primary-green)"
+          : "var(--color-text-muted)"}
+        size={24}
+      /> -->
+      <p
+        class={`flex justify-center items-center text-xs py-1.75 px-3 rounded-xl text-[var(--color-text-muted) ${
+          cardExpanded
+            ? "bg-[var(--color-primary-green)]/60"
+            : "bg-transparent border-[var(--color-text-muted)]/60 border-1"
+        }`}
+      >
+        {cardExpanded ? "Close" : "More Details"}
+      </p>
     </button>
+  </div>
 
-    {#if expanded}
+  <!-- Expanded Body -->
+  {#if cardExpanded}
+    <div
+      id={cardPanelId}
+      class="mt-4 space-y-0"
+      transition:slide={{ duration: 300 }}
+    >
+      <!-- Reading Plan header -->
+      <!-- <h2
+        class="pl-1 text-[13px] uppercase font-inter font-medium text-[var(--color-text-secondary)]"
+      >
+        {#if isCurrentWeek}
+          Current Reading Plan
+        {:else}
+          <span class="italic">Viewing Reading Plan</span>
+        {/if}
+      </h2>
       <div
-        id="calendar-edit"
-        class="mt-3 p-3 rounded-[13px] bg-neutral-100"
-        transition:slide={{ duration: 300 }}
+        class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
       >
         <p
-          class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-3"
+          class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
         >
-          Meeting Day
+          {selectedPlan}
+          <span class="text-[var(--color-text-muted)]"
+            >• {today.getFullYear()}</span
+          >
         </p>
-        <fieldset
-          class="-ml-2 flex justify-between"
-          aria-label="Select Meeting Day"
+      </div> -->
+
+      <!-- Week section + nav -->
+      <div class="flex w-full items-center">
+        <h2
+          class="pl-1 text-[13px] uppercase font-inter font-medium text-[var(--color-text-secondary)]"
         >
-          {#each daysOfWeek as day}
-            <label
-              class="cursor-pointer select-none rounded-[3rem] h-11 px-2 py-1 border transition
-                 flex items-center justify-center text-center text-[var(--color-text-secondary)]
-                 text-sm font-medium flex-1 max-w-[calc(100%/7)]
-                 {meetingDay === day.value
-                ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)] text-[var(--color-text-primary)]'
-                : 'border-transparent hover:border-[var(--color-text-muted)]'}"
+          <!-- {#if isCurrentWeek}
+            Current Week
+          {:else}
+            <span class="italic">Viewing Week</span>
+          {/if} -->
+
+          {#if isCurrentWeek}
+            Current Week
+          {:else if weekOffset < 0}
+            {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
+          {:else if weekOffset > 0}
+            {weekOffset} Week{weekOffset !== 1 ? "s" : ""} Ahead
+          {/if}
+        </h2>
+
+        <div class="flex items-center gap-1 ml-auto">
+          {#if !isCurrentWeek}
+            <button
+              on:click={goToCurrentWeek}
+              class="flex items-center px-3 py-1.5 text-xs rounded-2xl bg-[var(--color-primary-green)
+              
+              text-white hover:opacity-80 transition-opacity"
+              aria-label="Go to Current Week"
             >
-              <input
-                type="radio"
-                name="meetingDay"
-                value={day.value}
-                bind:group={meetingDay}
-                class="sr-only"
-                on:change={() => changeMeetingDay(day.value as MeetingDay)}
+              <span
+                class="mt-0.5 bg-[var(--color-primary-green)]/60 py-1.5 px-2 rounded-xl text-[black]"
+                >Back to Current Week</span
+              >
+            </button>
+          {/if}
+
+          <div
+            class="flex items-center border border-neutral-300 rounded-2xl mb-2"
+          >
+            <button
+              on:click={() => changeWeek(-1)}
+              class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
+              aria-label="Previous Week"
+              title="Previous Week"
+            >
+              <NarrowArrow
+                direction="right"
+                size={20}
+                color="var(--color-text-muted)"
               />
-              {day.label.slice(0, 3)}
-            </label>
-          {/each}
-        </fieldset>
+            </button>
+            <button
+              on:click={() => changeWeek(1)}
+              class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
+              aria-label="Next Week"
+              title="Next Week"
+            >
+              <NarrowArrow
+                direction="left"
+                size={20}
+                color="var(--color-text-muted)"
+              />
+            </button>
+          </div>
+        </div>
       </div>
-    {/if}
-  </div>
+
+      <!-- Week details row -->
+      <div>
+        <div
+          class="flex flex-col min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
+        >
+          <button
+            on:click={toggleMeetingExpanded}
+            class="flex items-center bg-transparent min-h-6.5 cursor-pointer grow-1 w-full"
+            aria-expanded={meetingExpanded}
+            aria-controls="calendar-edit"
+          >
+            <p
+              class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)] text-left"
+            >
+              <span class="text-[var(--color-text-secondary)]"
+                >{weekRangeString}</span
+              >
+            </p>
+            <div class="flex items-center ml-auto">
+              <!-- <ArrowDown
+                up={meetingExpanded}
+                color={meetingExpanded
+                  ? "var(--color-primary-green)"
+                  : "var(--color-text-muted)"}
+                size={28}
+              /> -->
+              <p
+                class={`flex justify-center items-center text-xs py-1.75 px-2 rounded-xl text-[var(--color-text-muted) ${
+                  meetingExpanded
+                    ? "bg-[var(--color-primary-green)]/60"
+                    : "bg-transparent border-[var(--color-text-muted)]/60 border-1"
+                }`}
+              >
+                {meetingExpanded ? "Save & Close" : "Change Meeting Day"}
+              </p>
+            </div>
+          </button>
+          {#if meetingExpanded}
+            <div
+              id="calendar-edit"
+              class="mt-3 p-3 rounded-[13px] bg-neutral-100"
+              transition:slide={{ duration: 300 }}
+            >
+              <p
+                class="font-inter font-medium tracking-tight text-[var(--color-text-muted)] font-sm mb-3"
+              >
+                Select Meeting Day
+              </p>
+              <fieldset
+                class="-ml-2 flex justify-between"
+                aria-label="Select Meeting Day"
+              >
+                {#each daysOfWeek as day}
+                  <label
+                    class="cursor-pointer select-none rounded-[3rem] h-11 px-2 py-1 border transition flex items-center justify-center text-center text-[var(--color-text-secondary)] text-sm font-medium flex-1 max-w-[calc(100%/7)] {meetingDay ===
+                    day.value
+                      ? 'border-[var(--color-primary-green)] bg-[var(--color-primary-green)] text-[var(--color-text-primary)]'
+                      : 'border-transparent hover:border-[var(--color-text-muted)]'}"
+                  >
+                    <input
+                      type="radio"
+                      name="meetingDay"
+                      value={day.value}
+                      bind:group={meetingDay}
+                      class="sr-only"
+                      on:change={() =>
+                        changeMeetingDay(day.value as MeetingDay)}
+                    />
+                    {day.label.slice(0, 3)}
+                  </label>
+                {/each}
+              </fieldset>
+            </div>
+          {/if}
+        </div>
+      </div>
+    </div>
+  {/if}
 </SectionCard>
+
+<style>
+  /* Optional: focus ring for header/meeting buttons */
+  button:focus-visible {
+    outline: 2px solid var(--color-primary-green);
+    outline-offset: 2px;
+  }
+</style>

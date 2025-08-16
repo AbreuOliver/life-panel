@@ -132,8 +132,12 @@
     </h2>
     <div class="flex">
       <p class="text-[var(--color-text-secondary)] pr-2">
-        {completionPercent * 100}% Read
+        <span class:text-[var(--color-primary-green)]={completionPercent === 1}>
+          {completionPercent * 100}%
+        </span>
+        &nbsp;Read
       </p>
+
       <!-- Animated circular progress -->
       <svg class="w-6 h-6" viewBox="0 0 24 24">
         <!-- Background track -->
@@ -166,10 +170,10 @@
     <p class="font-manrope text-2xl text-left font-semibold text-white mb-3">
       {#if isCurrentWeek}
         Today <span class="text-[var(--color-text-muted)]">•</span>
-      {:else if weekOffset < 0}
-        {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
-      {:else if weekOffset > 0}
-        {weekOffset} Week{weekOffset !== 1 ? "s" : ""} Ahead
+      {:else}
+        Viewing <span class="text-[var(--color-primary-green)]"
+          >Week {currentWeek}</span
+        >
       {/if}
 
       <span class="date text-[var(--color-text-muted)]">
@@ -229,7 +233,7 @@
             <button
               on:click={() => toggleDayCompletion(dayIndex)}
               aria-label={`Mark Week ${currentWeek} Day ${dayIndex + 1} as complete`}
-              class="flex items-center justify-center w-12 h-12 rounded-full border border-gray-400 bg-transparent"
+              class="flex items-center justify-center w-12 h-12 rounded-full border border-[var(--color-primary-green)]/50 bg-transparent"
             >
             </button>
           {/if}
