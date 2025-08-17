@@ -35,12 +35,12 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
+<Header />
 <div class="min-h-screen flex flex-col overflow-x-hidden">
   {#if showSplash}
     <Splash onDone={handleSplashDone} />
   {/if}
 
-  <Header />
   <main class="flex-1 max-w-[70ch] mx-auto px-4 sm:px-0 w-full py-4">
     <slot />
   </main>

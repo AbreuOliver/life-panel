@@ -18,7 +18,7 @@
 </script>
 
 <header
-  class={`flex items-center min-h-16 sticky top-0 z-10 w-screen px-8 sm:px-6 ${
+  class={`flex items-center min-h-16 sticky top-0 z-10 w-full px-8 sm:px-6 ${
     pwaIOS ? "pwa-ios" : "default-header"
   }`}
 >

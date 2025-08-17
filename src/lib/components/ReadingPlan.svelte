@@ -3,6 +3,7 @@
   import { userPreferences } from "$lib/stores/userPreferences.store";
   import { getWeekOfYear, getWeekRange } from "$lib/utils/calculateWeek";
   import { getReadingPlan } from "$lib/utils/getPlanData";
+  import { toBibleLink } from "$lib/utils/youVersionBibleLinkCreator";
   import SectionCard from "$lib/components/SectionCard.svelte";
 
   const today = new Date();
@@ -199,11 +200,41 @@
           <p
             class="font-manrope text-lg leading-7 text-[var(--color-text-muted)] flex-1 pl-2"
           >
-            {#each passages as passage, i}
+            <!-- {#each passages as passage, i}
               {passage}
               {#if i < passages.length - 1}
                 <span class="text-[var(--color-primary-green)] pl-1 pr-2"
                   >&amp;</span
+                >
+              {/if}
+            {/each} -->
+            {#each passages as passage, i}
+              <a
+                href={toBibleLink(passage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 hover:underline hover:text-[var(--color-primary-green)]
+             focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-green)]
+             rounded-sm transition-colors"
+                aria-label={`Open ${passage} on bible.com (opens in new tab)`}
+                title={`Open ${passage} on bible.com`}
+              >
+                <span>{passage}</span>
+                <!-- external icon -->
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  class="w-4 h-4 opacity-70 group-hover:opacity-100"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3ZM5 5h6v2H7v10h10v-4h2v6H5V5Z"
+                  />
+                </svg>
+              </a>
+
+              {#if i < passages.length - 1}
+                <span class="text-[var(--color-primary-green)] px-2">&amp;</span
                 >
               {/if}
             {/each}

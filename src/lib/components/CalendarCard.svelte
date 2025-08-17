@@ -1,6 +1,5 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
-  import { onMount } from "svelte";
   import {
     userPreferences,
     type MeetingDay,
@@ -102,11 +101,6 @@
     { value: 6, label: "Saturday" },
   ];
 
-  onMount(() => {
-    // optional debugging
-    // console.log(">>> Store Values", $userPreferences);
-  });
-
   // ==================== ACCESSIBILITY IDS ====================
   const cardPanelId = "plan-week-panel";
   const meetingPanelId = "meeting-day-panel";
@@ -129,6 +123,14 @@
 
 <SectionCard bgColor="#E8E8E8" padding="md">
   <!-- Collapsed Header / Toggle -->
+  <!-- Heading OUTSIDE the border -->
+  <p
+    class="text-sm font-inter uppercase text-[var(--color-text-secondary)] mb-2 ml-2"
+  >
+    Current Reading Plan and Week
+  </p>
+
+  <!-- Bordered card container -->
   <div
     class="w-full p-3 rounded-[13px] border border-[#CDCFCE] focus:outline-none"
   >
@@ -140,33 +142,29 @@
       aria-controls={cardPanelId}
     >
       <!-- Left column -->
-      <div class="flex flex-col items-start text-left mr-auto space-y-2">
-        <p class="text-sm font-inter uppercase text-[var(--color-text-muted)]">
-          Current Plan and Week
-        </p>
-
+      <div class="flex flex-col items-start text-left mr-auto space-y-1.5">
         <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
           {selectedPlan}
           •
-          <span class="text-[var(--color-primary-green)]"
-            >Week {currentWeek}</span
-          >
+          <span class="text-[var(--color-primary-green)]">
+            Week {currentWeek}
+          </span>
         </p>
 
-        <p
-          class="font-manrope font-semibold text-[var(--color-text-secondary)]"
-        >
-          {weekRangeString}
+        <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
+          <span class="text-[var(--color-text-secondary)]"
+            >{weekRangeString}</span
+          >
         </p>
       </div>
 
-      <!-- Right side: arrow pushed far right -->
+      <!-- Arrow pinned right -->
       <ArrowDown
         up={cardExpanded}
         color={cardExpanded
           ? "var(--color-primary-green)"
           : "var(--color-text-muted)"}
-        size={24}
+        size={28}
       />
     </button>
   </div>
@@ -178,42 +176,14 @@
       class="mt-4 space-y-0"
       transition:slide={{ duration: 300 }}
     >
-      <!-- Reading Plan header -->
-      <!-- <h2
-        class="pl-1 text-[13px] uppercase font-inter font-medium text-[var(--color-text-secondary)]"
-      >
-        {#if isCurrentWeek}
-          Current Reading Plan
-        {:else}
-          <span class="italic">Viewing Reading Plan</span>
-        {/if}
-      </h2>
-      <div
-        class="flex items-center min-h-10 p-2.5 border border-[#CDCFCE] rounded-[13px]"
-      >
-        <p
-          class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)]"
-        >
-          {selectedPlan}
-          <span class="text-[var(--color-text-muted)]"
-            >• {today.getFullYear()}</span
-          >
-        </p>
-      </div> -->
-
       <!-- Week section + nav -->
-      <div class="flex w-full items-center">
+      <div class="flex w-full items-center mb-2">
         <h2
           class="pl-1 text-[13px] uppercase font-inter font-medium text-[var(--color-text-secondary)]"
         >
-          <!-- {#if isCurrentWeek}
-            Current Week
-          {:else}
-            <span class="italic">Viewing Week</span>
-          {/if} -->
-
+          Viewing <br />
           {#if isCurrentWeek}
-            Present Week
+            Current Week
           {:else if weekOffset < 0}
             {Math.abs(weekOffset)} Week{Math.abs(weekOffset) !== 1 ? "s" : ""} Ago
           {:else if weekOffset > 0}
@@ -237,9 +207,7 @@
             </button>
           {/if}
 
-          <div
-            class="flex items-center border border-neutral-300 rounded-2xl mb-2"
-          >
+          <div class="flex items-center border border-neutral-300 rounded-2xl">
             <button
               on:click={() => changeWeek(-1)}
               class="p-1 rounded hover:text-[var(--color-primary-green)] transition-colors"
@@ -248,7 +216,7 @@
             >
               <NarrowArrow
                 direction="right"
-                size={20}
+                size={24}
                 color="var(--color-text-muted)"
               />
             </button>
@@ -260,7 +228,7 @@
             >
               <NarrowArrow
                 direction="left"
-                size={20}
+                size={24}
                 color="var(--color-text-muted)"
               />
             </button>
@@ -282,9 +250,10 @@
             <p
               class="font-manrope grow-1 font-semibold text-[var(--color-text-primary)] text-left"
             >
-              <span class="text-[var(--color-text-secondary)]"
-                >{weekRangeString}</span
-              >
+              Current Meeting Day:
+              <span class="text-[var(--color-primary-green)]">
+                {daysOfWeek.find((d) => d.value === meetingDay)?.label}
+              </span>
             </p>
             <div class="flex items-center ml-auto">
               <ArrowDown
