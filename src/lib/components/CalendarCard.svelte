@@ -201,7 +201,7 @@
               aria-label="Go to Current Week"
             >
               <span
-                class="mt-0.5 bg-[var(--color-primary-green)]/60 py-1.5 px-2 rounded-xl text-[black]"
+                class="mt-0.5 bg-[var(--color-primary-green)] py-1.5 px-2 rounded-xl text-[black]"
                 >Back to Current Week</span
               >
             </button>
