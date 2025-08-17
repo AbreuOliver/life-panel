@@ -3,17 +3,34 @@
   import favicon from "$lib/assets/HEAR-Journal.ico";
   import Header from "$lib/components/Header.svelte";
   import Splash from "$lib/components/SplashScreen.svelte";
+
   import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import { parseUserAgent } from "$lib/utils/userAgentParser";
   import { registerSW } from "virtual:pwa-register";
+  import {
+    isInstalledAsPWA /*, getDisplayMode*/,
+  } from "$lib/utils/pwaModeDetect";
 
-  let showSplash = true;
+  // UI state
+  let showSplash = false; // default: no splash in browsers
+  let isPWA = false;
   let uaDisplay = "";
 
-  if (browser) {
-    uaDisplay = parseUserAgent(window.navigator.userAgent);
-  }
+  // Run client-only to avoid SSR mismatches
+  onMount(() => {
+    if (!browser) return;
 
+    uaDisplay = parseUserAgent(window.navigator.userAgent);
+
+    isPWA = isInstalledAsPWA();
+    showSplash = isPWA; // show splash only when running as an installed PWA
+
+    // Optional: log display mode for diagnostics
+    // console.debug("PWA:", isPWA, "mode:", getDisplayMode());
+  });
+
+  // Service worker
   const updateSW = registerSW({
     immediate: true,
     onNeedRefresh() {
@@ -26,6 +43,7 @@
     },
   });
 
+  // Splash completion
   function handleSplashDone() {
     showSplash = false;
   }
