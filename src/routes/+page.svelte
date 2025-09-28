@@ -11,18 +11,10 @@
 </script>
 
 <main class="space-y-4">
-  {#if oliver}
-    <PersonCard person={oliver} />
-  {/if}
-  {#if cara}
-    <PersonCard person={cara} />
-  {/if}
-  {#if ezekiel}
-    <PersonCard person={ezekiel} />
-  {/if}
-  {#if elias}
-    <PersonCard person={elias} />
-  {/if}
+  <PersonCard person={oliver} />
+  <PersonCard person={cara} />
+  <PersonCard person={ezekiel} />
+  <PersonCard person={elias} />
   <!-- <MemoryVerse />
   <ReadingPlan /> -->
   <!-- <AdditionalReading /> -->

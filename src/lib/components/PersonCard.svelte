@@ -2,19 +2,25 @@
   import { slide } from "svelte/transition";
   import SectionCard from "$lib/components/SectionCard.svelte";
   import ArrowDown from "$lib/components/icons/ArrowDown.svelte";
-  import type { Person } from "$lib/data/persons"; // { id, name, dob, color? }
+  import type { Person } from "$lib/data/persons";
 
-  // ---- PROP ----
-  export let person: Person; // required
+  // IMPORT corrected utilities from chronoCalculations.ts
+  import {
+    nextBirthday,
+    nextHalfBirthday,
+    daysUntil,
+    ageInYears, // keep your age decimal consistent
+    // If you already have a y/m/d age helper elsewhere, keep it. Otherwise:
+  } from "$lib/utils/chronoCalculations";
+  // Year-including date formatter
+  import { formatDowMonDayYear as fmtWithYear } from "$lib/utils/chronoCalculations";
 
-  // ---- UTILITIES (consider moving to a shared module) ----
-  const MS_PER_DAY = 86_400_000;
-  const startOfLocalDay = (d: Date) =>
-    new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  export let person: Person; // { id, name, dob, ... }
 
+  // minimal DOB parser (accepts "YYYY-MM-DD" or "MM/DD/YYYY")
   function parseDOB(input: string | Date): Date {
-    if (input instanceof Date) return startOfLocalDay(input);
-    // Accept "YYYY-MM-DD" or "MM/DD/YYYY"
+    if (input instanceof Date)
+      return new Date(input.getFullYear(), input.getMonth(), input.getDate());
     if (/^\d{4}-\d{2}-\d{2}$/.test(input)) {
       const [y, m, d] = input.split("-").map(Number);
       return new Date(y, m - 1, d);
@@ -23,49 +29,21 @@
     return new Date(y, m - 1, d);
   }
 
-  function daysBetween(a: Date, b: Date): number {
-    const A = startOfLocalDay(a).getTime();
-    const B = startOfLocalDay(b).getTime();
-    return Math.round((B - A) / MS_PER_DAY);
-  }
-  const daysUntil = (target: Date, from: Date = new Date()) =>
-    daysBetween(from, target);
-
-  function nextBirthday(dob: Date, from: Date = new Date()): Date {
-    const y = from.getFullYear();
-    const candidate = new Date(y, dob.getMonth(), dob.getDate());
-    return candidate > startOfLocalDay(from)
-      ? candidate
-      : new Date(y + 1, dob.getMonth(), dob.getDate());
-  }
-
-  function nextHalfBirthday(dob: Date, from: Date = new Date()): Date {
-    const y = from.getFullYear();
-    const thisYearBday = new Date(y, dob.getMonth(), dob.getDate());
-    const thisYearHalf = new Date(y, dob.getMonth() + 6, dob.getDate());
-    const candidates = [
-      thisYearBday,
-      thisYearHalf,
-      new Date(y + 1, dob.getMonth(), dob.getDate()),
-      new Date(y + 1, dob.getMonth() + 6, dob.getDate()),
-    ].map(startOfLocalDay);
-    const now = startOfLocalDay(from).getTime();
-    const nxt = candidates.find((c) => c.getTime() > now);
-    return nxt ?? candidates[candidates.length - 1];
-  }
-
+  // Optional: keep your calendar-accurate Y/M/D breakdown
   function diffYMD(
     from: Date,
     to: Date
   ): { years: number; months: number; days: number } {
-    let start = startOfLocalDay(from);
-    let end = startOfLocalDay(to);
-    if (start > end) [start, end] = [end, start];
-    let years = end.getFullYear() - start.getFullYear();
-    let months = end.getMonth() - start.getMonth();
-    let days = end.getDate() - start.getDate();
+    const start = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+    const end = new Date(to.getFullYear(), to.getMonth(), to.getDate());
+    let a = start,
+      b = end;
+    if (a > b) [a, b] = [b, a];
+    let years = b.getFullYear() - a.getFullYear();
+    let months = b.getMonth() - a.getMonth();
+    let days = b.getDate() - a.getDate();
     if (days < 0) {
-      const pm = new Date(end.getFullYear(), end.getMonth(), 0);
+      const pm = new Date(b.getFullYear(), b.getMonth(), 0);
       days += pm.getDate();
       months -= 1;
     }
@@ -76,34 +54,23 @@
     return { years, months, days };
   }
 
-  function ageFloatYears(
-    dob: Date,
-    on: Date = new Date(),
-    precision = 2
-  ): number {
-    const yearMs = 365.2425 * MS_PER_DAY;
-    return Number(((on.getTime() - dob.getTime()) / yearMs).toFixed(precision));
-  }
-
-  const fmtDate = (d: Date) =>
-    d.toLocaleDateString(undefined, {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-    });
-
-  // ---- REACTIVE DERIVED FROM PROP ----
+  // ---- reactive derived from prop ----
   $: today = new Date();
   $: personName = person?.name ?? "";
   $: dob = parseDOB(person?.dob ?? "");
-  $: ageParts = diffYMD(dob, today);
-  $: ageYearsDecimal = ageFloatYears(dob, today, 2);
-  $: half = nextHalfBirthday(dob, today);
-  $: bday = nextBirthday(dob, today);
-  $: daysToHalf = daysUntil(half, today);
-  $: daysToBday = daysUntil(bday, today);
 
-  // ---- UI STATE ----
+  $: ageYearsDecimal = ageInYears(dob, today, 2);
+  $: ageParts = diffYMD(dob, today);
+
+  // USE the fixed helpers (these **only** return the correct milestone)
+  $: bday = nextBirthday(dob, today);
+  $: half = nextHalfBirthday(dob, today);
+
+  // year-including labels + day counts
+  $: bdayText = `${fmtWithYear(bday)} (${daysUntil(bday, today)} ${daysUntil(bday, today) === 1 ? "day" : "days"})`;
+  $: halfText = `${fmtWithYear(half)} (${daysUntil(half, today)} ${daysUntil(half, today) === 1 ? "day" : "days"})`;
+
+  // UI state
   let cardExpanded = false;
   const toggleCardExpanded = () => (cardExpanded = !cardExpanded);
   const onHeaderKeydown = (e: KeyboardEvent) => {
@@ -162,17 +129,11 @@
       >
         <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
           Next Birthday:
-          <span class="text-[var(--color-primary-green)]">
-            {fmtDate(bday)} ({daysToBday}
-            {daysToBday === 1 ? "day" : "days"})
-          </span>
+          <span class="text-[var(--color-primary-green)]">{bdayText}</span>
         </p>
         <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
           Half-Birthday:
-          <span class="text-[var(--color-primary-green)]">
-            {fmtDate(half)} ({daysToHalf}
-            {daysToHalf === 1 ? "day" : "days"})
-          </span>
+          <span class="text-[var(--color-primary-green)]">{halfText}</span>
         </p>
       </div>
     </div>

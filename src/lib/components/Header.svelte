@@ -36,7 +36,7 @@
       pwaIOS ? "text-white" : "text-primary-green"
     }`}
   >
-    <span class="tracking-tighter">{headerISO}</span>
+    <span class="tracking-tighter">{headerUS}</span>
   </h1>
 </header>
 
