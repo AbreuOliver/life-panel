@@ -6,9 +6,9 @@
   --color-text-primary: hsl(0, 0%, 13%);
   --color-text-secondary: hsl(0, 0%, 29%);
   --color-text-muted: hsl(0, 0%, 60%);
-  --color-primary-green: #82d844;
+  /* --color-primary-green: #82d844; */
   /* --color-primary-green: #ff69b4; */
-  /* --color-primary-green: #007aff; */
+  --color-primary-green: #007aff;
 }
 
 .font-manrope {

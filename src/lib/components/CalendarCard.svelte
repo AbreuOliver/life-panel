@@ -122,13 +122,11 @@
 </script>
 
 <SectionCard bgColor="#E8E8E8" padding="md">
-  <!-- Collapsed Header / Toggle -->
-  <!-- Heading OUTSIDE the border -->
-  <p
-    class="text-sm font-inter uppercase text-[var(--color-text-secondary)] mb-2 ml-2"
+  <h2
+    class="pl-1 text-[13px] uppercase font-inter font-semibold mb-1 text-[var(--color-text-muted)] pb-1"
   >
     Current Reading Plan and Week
-  </p>
+  </h2>
 
   <!-- Bordered card container -->
   <div
@@ -146,7 +144,7 @@
         <p class="font-manrope font-semibold text-[var(--color-text-primary)]">
           {selectedPlan}
           •
-          <span class="text-[var(--color-primary-green)]">
+          <span class="text-[var(--color-primary-green)] text-bold">
             Week {currentWeek}
           </span>
         </p>
@@ -263,15 +261,6 @@
                   : "var(--color-text-muted)"}
                 size={28}
               />
-              <!-- <p
-                class={`flex justify-center items-center text-xs py-1.75 px-2 rounded-xl text-[var(--color-text-muted) ${
-                  meetingExpanded
-                    ? "bg-[var(--color-primary-green)]/60"
-                    : "bg-transparent border-[var(--color-text-muted)]/60 border-1"
-                }`}
-              >
-                {meetingExpanded ? "Save & Close" : "Change Meeting Day"}
-              </p> -->
             </div>
           </button>
           {#if meetingExpanded}

@@ -3,34 +3,25 @@
   import favicon from "$lib/assets/HEAR-Journal.ico";
   import Header from "$lib/components/Header.svelte";
   import Splash from "$lib/components/SplashScreen.svelte";
-
-  import { browser } from "$app/environment";
+  import Banner from "$lib/components/Banner.svelte";
+  import { dev, browser } from "$app/environment";
   import { onMount } from "svelte";
   import { parseUserAgent } from "$lib/utils/userAgentParser";
   import { registerSW } from "virtual:pwa-register";
-  import {
-    isInstalledAsPWA /*, getDisplayMode*/,
-  } from "$lib/utils/pwaModeDetect";
+  import { isInstalledAsPWA } from "$lib/utils/pwaModeDetect";
 
   // UI state
-  let showSplash = false; // default: no splash in browsers
+  let showSplash = false;
   let isPWA = false;
   let uaDisplay = "";
 
-  // Run client-only to avoid SSR mismatches
   onMount(() => {
     if (!browser) return;
-
     uaDisplay = parseUserAgent(window.navigator.userAgent);
-
     isPWA = isInstalledAsPWA();
-    showSplash = isPWA; // show splash only when running as an installed PWA
-
-    // Optional: log display mode for diagnostics
-    // console.debug("PWA:", isPWA, "mode:", getDisplayMode());
+    showSplash = isPWA;
   });
 
-  // Service worker
   const updateSW = registerSW({
     immediate: true,
     onNeedRefresh() {
@@ -43,9 +34,25 @@
     },
   });
 
-  // Splash completion
   function handleSplashDone() {
     showSplash = false;
+  }
+
+  let showBanner = false;
+  let showMenuDot = false;
+
+  // Toggle logic
+  function toggleBanner() {
+    showBanner = !showBanner;
+    if (!showBanner) {
+      // If we just closed it manually, reset menu dot
+      showMenuDot = false;
+    }
+  }
+
+  function handleBannerClosed() {
+    // Exit animation complete
+    showMenuDot = true;
   }
 </script>
 
@@ -54,6 +61,7 @@
 </svelte:head>
 
 <Header />
+
 <div class="min-h-screen flex flex-col overflow-x-hidden">
   {#if showSplash}
     <Splash onDone={handleSplashDone} />
