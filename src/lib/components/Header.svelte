@@ -50,7 +50,7 @@
   }
 
   .default-header {
-    background-color: white;
+    background-color: #007aff;
   }
 
   .text-primary-green {
@@ -58,6 +58,6 @@
   }
 
   .text-white {
-    color: #007aff;
+    color: white;
   }
 </style>
