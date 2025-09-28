@@ -1,12 +1,12 @@
 {
-  "name": "HEAR Journal",
-  "short_name": "HEAR",
+  "name": "Life Panel",
+  "short_name": "LifePanel",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#82D844",
-  "theme_color": "#82D844",
-  "description": "Bible reading and journaling app",
+  "background_color": "#007aff",
+  "theme_color": "#007aff",
+  "description": "Chronological assistance web application",
   "icons": [
     {
       "src": "/static/icon-192.png",

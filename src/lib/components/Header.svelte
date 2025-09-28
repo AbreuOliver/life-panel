@@ -46,7 +46,7 @@
   }
 
   .pwa-ios {
-    background-color: #007aff;
+    background-color: transparent;
   }
 
   .default-header {
@@ -58,6 +58,6 @@
   }
 
   .text-white {
-    color: white;
+    color: #007aff;
   }
 </style>
