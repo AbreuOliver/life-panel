@@ -70,7 +70,7 @@
   <main class="flex-1 max-w-[70ch] mx-auto px-4 sm:px-0 w-full py-4">
     <slot />
   </main>
-  <div
+  <!-- <div
     class="h-4 w-full bg-amber-500 relative overflow-hidden"
     role="alert"
     aria-label="Warning indicator"
@@ -85,5 +85,5 @@
   >
     <span class="sr-only">Current browser and device information:</span>
     User Agent Info: {uaDisplay}
-  </footer>
+  </footer> -->
 </div>
