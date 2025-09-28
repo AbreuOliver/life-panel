@@ -41,23 +41,23 @@
 </header>
 
 <style>
-  header {
+  :global(header) {
     padding-top: env(safe-area-inset-top);
   }
 
-  .pwa-ios {
-    background-color: transparent;
-  }
-
-  .default-header {
+  :global(.pwa-ios) {
     background-color: #007aff;
   }
 
-  .text-primary-green {
+  :global(.default-header) {
+    background-color: white;
+  }
+
+  :global(.text-primary-green) {
     color: var(--color-primary-green);
   }
 
-  .text-white {
+  :global(.text-white) {
     color: white;
   }
 </style>
