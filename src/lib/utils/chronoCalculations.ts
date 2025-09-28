@@ -100,7 +100,7 @@ export function buildHeader(opts: HeaderOptions = {}): string {
   const weekSystem = opts.weekSystem ?? "ISO";
   const parts = [
     formatDayOfYearFraction(date),             // e.g., "270/95"
-    formatYear(date),                          // e.g., "2025"
+    // formatYear(date),                          // e.g., "2025"
     formatWeekLabel(date, weekSystem),         // e.g., "Week 39" (ISO for 2025-09-27)
     formatDowMonDay(date),                     // e.g., "Sat, Sep 27"
   ];

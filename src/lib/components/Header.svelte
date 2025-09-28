@@ -27,7 +27,7 @@
 </script>
 
 <header
-  class={`flex items-center h-full max-h-[56px] sticky top-0 z-10 w-full px-8 sm:px-6 ${
+  class={`flex justify-center items-center py-2 h-full max-h-[56px] sticky top-0 z-10 w-full px-8 sm:px-6 border-b border-[var(--color-primary-green)]  ${
     pwaIOS ? "pwa-ios" : "default-header"
   }`}
 >
@@ -46,7 +46,7 @@
   }
 
   .pwa-ios {
-    background-color: #82d844;
+    background-color: #007aff;
   }
 
   .default-header {
