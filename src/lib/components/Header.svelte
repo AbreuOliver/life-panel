@@ -27,12 +27,12 @@
 </script>
 
 <header
-  class={`flex justify-center items-center py-2 h-full max-h-[56px] sticky top-0 z-10 w-full px-8 sm:px-6 border-b border-[var(--color-primary-green)]  ${
+  class={`flex justify-center items-center py-2 h-full max-h-[56px] sticky top-0 z-10 w-full px-6 ${
     pwaIOS ? "pwa-ios" : "default-header"
   }`}
 >
   <h1
-    class={`max-w-[45ch] pt-6 pb-3 mx-auto w-full font-manrope text-xl font-bold tracking-tight ${
+    class={`max-w-[45ch] pt-6 pb-3 mx-auto w-full font-manrope text-2xl font-bold tracking-tight ${
       pwaIOS ? "text-white" : "text-primary-green"
     }`}
   >
