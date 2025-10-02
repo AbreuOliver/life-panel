@@ -86,11 +86,11 @@
 </script>
 
 <aside
-  class="flex flex-col items-center justify-center text-center py-2 h-full sticky top-0 z-10 w-full bg-white text-neutral-700 border-b border-neutral-300 pb-2"
+  class="flex flex-col items-center justify-center text-center py-2 h-full sticky top-0 z-10 w-full bg-white text-neutral-700 border-b border-neutral-300 pb-4"
   aria-label="Week strip"
 >
   <!-- Month / Year -->
-  <div class="font-manrope text-lg font-semibold pb-2">
+  <div class="font-manrope text-xl font-semibold pb-2">
     {currentMonth}
     <span class="text-neutral-800 font-bold">{currentYear}</span>
   </div>
