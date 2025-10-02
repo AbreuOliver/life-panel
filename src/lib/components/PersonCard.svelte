@@ -84,9 +84,13 @@
 
 <SectionCard bgColor="#E8E8E8" padding="md">
   <h2
-    class="pl-1 text-[13px] uppercase font-inter font-semibold mb-1 text-[var(--color-text-muted)] pb-1"
+    class="pl-1 text-[13px] uppercase font-inter font-semibold mb-1 text-[var(--color-text-primary)] pb-1"
   >
     {personName}
+    <span class="text-[var(--color-text-muted)]"
+      >• {ageYearsDecimal}
+      yrs</span
+    >
   </h2>
 
   <div

@@ -27,7 +27,7 @@
 </script>
 
 <header
-  class={`flex justify-center items-center py-2 h-full max-h-[56px] sticky top-0 z-10 w-full px-6 ${
+  class={`flex justify-center items-center text-center py-2 h-full max-h-[56px] sticky top-0 z-10 w-full px-6 ${
     pwaIOS ? "pwa-ios" : "default-header"
   }`}
 >
@@ -36,7 +36,7 @@
       pwaIOS ? "text-white" : "text-primary-green"
     }`}
   >
-    <span class="tracking-tighter">{headerUS}</span>
+    <span class="tracking-tighter">LifePanel</span>
   </h1>
 </header>
 

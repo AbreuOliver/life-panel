@@ -86,10 +86,15 @@ export interface HeaderOptions {
 export function buildHeader(opts: HeaderOptions = {}): string {
   const date = opts.date ?? new Date();
   const weekSystem = opts.weekSystem ?? "US";
+  // const parts = [
+  //   `${dayOfYear(date)}/${daysRemainingInYear(date)}`,
+  //   formatWeekLabel(date, weekSystem),
+  //   formatDowMonDay(date),
+  // ];
   const parts = [
-    `${dayOfYear(date)}/${daysRemainingInYear(date)}`,
-    formatWeekLabel(date, weekSystem),
     formatDowMonDay(date),
+    formatWeekLabel(date, weekSystem),
+    `${dayOfYear(date)}/${daysRemainingInYear(date)}`
   ];
   return parts.join(" • ");
 }

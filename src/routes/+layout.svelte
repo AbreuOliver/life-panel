@@ -61,13 +61,13 @@
 </svelte:head>
 
 <Header />
-
+<Banner />
 <div class="min-h-screen flex flex-col overflow-x-hidden">
   {#if showSplash}
     <Splash onDone={handleSplashDone} />
   {/if}
 
-  <main class="flex-1 max-w-[70ch] mx-auto px-4 sm:px-0 w-full py-4">
+  <main class="flex-1 max-w-[70ch] mx-auto px-0 sm:px-0 w-full py-0">
     <slot />
   </main>
   <!-- <div

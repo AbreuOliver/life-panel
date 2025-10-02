@@ -13,7 +13,7 @@
 </script>
 
 <div
-  class="rounded-[20px] flex-col"
+  class="rounded-[20px] flex-col min-w-full border border-neutral-300"
   style={`background-color: ${bgColor}; padding: ${paddingClasses[padding]}`}
 >
   <slot />
