@@ -27,12 +27,12 @@
 </script>
 
 <aside
-  class="flex items-center py-2 h-full max-h-[56px] w-full px-6 bg-neutral-700 tracking-wider"
+  class="flex items-center py-2 h-full min-h-[44px] w-full px-6 bg-neutral-700 tracking-wider"
 >
   <!-- Centered text block -->
   <div class="flex-1 text-center text-white">
     <p
-      class="font-manrope text-xs font-normal tracking-tight max-w-[45ch] mx-auto"
+      class="font-manrope text-sm font-normal tracking-tight max-w-[45ch] mx-auto"
     >
       {verses[index].text}
     </p>
