@@ -9,6 +9,7 @@
   import { parseUserAgent } from "$lib/utils/userAgentParser";
   import { registerSW } from "virtual:pwa-register";
   import { isInstalledAsPWA } from "$lib/utils/pwaModeDetect";
+  import DateSection from "$lib/components/DateSection.svelte";
 
   // UI state
   let showSplash = false;
@@ -62,6 +63,7 @@
 
 <Header />
 <Banner />
+<DateSection />
 <div class="min-h-screen flex flex-col overflow-x-hidden">
   {#if showSplash}
     <Splash onDone={handleSplashDone} />

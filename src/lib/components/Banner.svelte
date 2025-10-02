@@ -27,7 +27,7 @@
 </script>
 
 <aside
-  class="sticky flex items-center py-2 h-full max-h-[56px] top-0 z-10 w-full px-6 bg-neutral-700 tracking-wider"
+  class="flex items-center py-2 h-full max-h-[56px] w-full px-6 bg-neutral-700 tracking-wider"
 >
   <!-- Centered text block -->
   <div class="flex-1 text-center text-white">
